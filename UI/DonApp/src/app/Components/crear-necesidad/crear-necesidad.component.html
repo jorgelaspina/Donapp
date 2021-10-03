@@ -1,0 +1,38 @@
+<div>
+    <app-header></app-header>
+  </div>
+  <div class="d-flex justify-content-center windows-name bg-gris text-black">
+    Crear nueva necesidad
+  </div>  
+  
+  <div class="with-margin-top  with-margin-lateral">
+    <form>
+          <div class="form-group" style="padding-bottom: 10px;">
+            <label for="titulo">Título</label>
+            <input type="text" class="form-control" name="titulo"
+             id="exampleInputEmail1" aria-describedby="emailHelp" [(ngModel)]="titulo" placeholder="Ingrese título">
+          </div>
+          <div class="form-group" style="padding-bottom: 10px;">
+              <label for="selectCategoria">Categoría</label>
+              <select class="form-control" id="selectCategoria" name="catDropDown" [(ngModel)]="catSelected">
+                  <option *ngFor="let dataItem of categorias" [value]="dataItem.ID">{{dataItem.nombreCategoria}}</option>
+              </select>
+            </div>
+          <div class="form-group" style="padding-bottom: 10px;">
+            <label for="textDescripcion">Descripción</label>
+              <textarea class="form-control" [(ngModel)]="descripcion" name="descripcion" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+          <div class="form-group" style="padding-bottom: 10px;">          
+            <img src="./assets/Posi.png" height="22px;" width="15;"/>
+            <label>Ubicación: </label><label> {{this.direccion.results[0].formatted_address}}</label>       
+            </div>
+        </form>
+  </div>
+  
+  <footer class="main-footer">
+      <div class="d-flex justify-content-center bg-azul text-white">
+        <button type="button" (click)="crearNecesidad()" routerLink="/donacionescercanas" class="btnradius">Cargar</button>
+      </div>
+  </footer>
+  
+  

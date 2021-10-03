@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "rJ2CynRSC3TCF+LkcVJcfrn+dikn1thzkDA2KAx7ztSduTXSqlvdzCOwyc3isS2X682XSVSdcGYRMIclWcypvw==",
+  "success": true,
+  "projectFilePath": "C:\\TFG\\API\\WEBAPPV2\\WEBAPPV2\\WEBAPPV2.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Jorge\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\3.1.17\\microsoft.aspnetcore.jsonpatch.3.1.17.nupkg.sha512",
+    "C:\\Users\\Jorge\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\3.1.17\\microsoft.aspnetcore.mvc.newtonsoftjson.3.1.17.nupkg.sha512",
+    "C:\\Users\\Jorge\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\Jorge\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\Jorge\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

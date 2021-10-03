@@ -1,0 +1,53 @@
+<div>
+    <app-header></app-header>
+</div>
+<div class="d-flex justify-content-center windows-name bg-gris text-black">
+    Solicitudes Recibidas
+</div>
+<div class="with-margin-top justify-content-center">
+<mat-carousel
+  timings="250ms ease-in"
+  [autoplay]="false"
+  color="accent"
+  maxWidth="auto"
+  [proportion]=150
+  [loop]="true"
+  [hideArrows]="false"
+  [hideIndicators]="false"
+  [useKeyboard]="true"
+  [useMouseWheel]="false"
+  orientation="ltr"
+>
+  <mat-carousel-slide
+    #matCarouselSlide
+    *ngFor="let slide of solicitudesrecibidas; let i = index"
+    overlayColor="white"
+    [hideOverlay]="false"
+  >
+  <div class="container" style="margin: 50px 0px 0px 0px; text-align: center;">
+    <div class="row">
+        <div class="col-12"><h3><img class="mr5" src="./assets/user.png" height="20px;" width="20;"/>{{slide.nombreUsuario}} te solicita:</h3></div>
+    </div>
+    <div class="row">
+        <div class="col-xs"><h3>{{slide.titulo}}</h3></div>
+    </div>
+    <div class="row">
+        <div class="col-xs"><h3><img lass="mr5" src="./assets/Posi.png" height="20px;" width="15;"/>{{slide.direccion}}</h3></div>
+    </div>        
+    <div class="row">
+        <div class="col-xs"><h4>Ver historial del Usuario</h4></div>
+    </div>
+    <div class="container fb">
+        <button style="margin-right: 5px; background-color: rgb(41, 129, 0); color: white;" mat-fab [mat-dialog-close]="false" (click)="aceptarSolicitud(slide)">Aceptar</button>
+        <button style="margin-left: 5px; background-color: rgb(206, 2, 2); color: white;" mat-fab [mat-dialog-close]="true" (click)="rechazarSolicitud(slide)">Rechazar</button>
+    </div>  
+    </div>  
+</mat-carousel-slide>
+</mat-carousel>
+</div>
+<footer class="main-footer">
+    <div class="d-flex justify-content-center bg-azul text-white">
+    </div>
+</footer>
+
+

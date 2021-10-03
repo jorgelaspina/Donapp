@@ -1,0 +1,13 @@
+.botonGrande{
+    height: 100vh;
+}
+
+.margenContenedor{
+    margin-top: 80px;
+    margin-bottom: 80px;
+    height: 100%;
+}
+
+.alto-50{
+    height: calc(50vh - 80px);
+}

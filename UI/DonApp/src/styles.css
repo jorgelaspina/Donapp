@@ -1,0 +1,94 @@
+/* You can add global styles to this file, and also import other style files */
+.margenStandard{
+    margin-top:60px;
+    margin-bottom: 80px;
+    height: 100%;
+}
+.main-footer {
+	background: #333;
+	color: white;
+	height: 30px;
+	
+	width: 100%; /* hacemos que la cabecera ocupe el ancho completo de la página */
+	left: 0; /* Posicionamos la cabecera al lado izquierdo */
+	bottom: 0; /* Posicionamos la cabecera pegada arriba */
+	position: fixed; /* Hacemos que la cabecera tenga una posición fija */
+}
+.btnradius
+{
+    border-radius: 15px;
+	background-color: violet;
+	border-color: violet;
+	text-emphasis-color: black;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.bg-azul{
+	background-color: darkblue;
+}
+.bg-gris{
+	background-color: rgb(206, 197, 197)
+}
+.bg-celeste {
+	background: rgb(110, 217, 253);
+  }
+.grid-bg{
+	background: rgb(110, 217, 253);
+}
+.color-tile {
+	background: rgb(110, 217, 253);
+  }
+.white-tile {
+	background: rgb(255, 255, 255);
+  }
+.text-inside-grid-small{
+	position: absolute;
+  	left: 5px;
+	font-size: small;
+}
+.text-inside-grid{
+	position: absolute;
+  	left: 5px;
+	font-weight: 500;
+}
+.btn-inside-grid{
+	align-content: center
+}
+.with-margin-top {
+	padding-top: 80px;
+	padding-bottom: 30px;
+}
+.with-margin-lateral {
+	margin-left: 5%;
+	margin-right: 5%;
+}
+
+.windows-name{
+	position: fixed;
+	left: 0px;
+	top: 50px;
+	width: 100%;
+	z-index: 2;
+}
+.mr5{
+	margin-right: 5px;
+}
+
+.fb{
+    position: absolute;
+    bottom: 60px;
+	text-align: center;
+}
+.mat-icon-button.mat-accent {
+    color: darkblue;
+}
+.mat-mini-fab.mat-accent {
+    background-color: darkblue;
+}
+.tituloIcono{
+	position: absolute;
+	right: 0px;
+	font-size: x-small;
+}

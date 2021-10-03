@@ -1,0 +1,16 @@
+
+<header id="main-header" class="fixed-top">
+    <div class="d-flex justify-content-between text-white bg-azul">
+        <img [matMenuTriggerFor]="appMenu" src="./assets/usuario.png" height="40px;" width="40px;" style="margin: 5px 5px 5px 5px">
+        <h1  routerLink="/principal" style="margin: 0 0 0px; align-self:center; color: white; font-family: fangsong; font-size: xx-large; text-decoration: none;">DONAPP</h1>
+        <img src="/assets/Nomensajes.png"  routerLink="/notificaciones" height="35px;" width="46px;" style="margin: 5px 5px 5px 5px"/>
+    </div>
+    <mat-menu #appMenu="matMenu">
+        <button mat-menu-item routerLink="/misdonaciones"> Mis Donaciones </button>
+        <button mat-menu-item routerLink="/misnecesidades"> Mis Necesidades </button>
+        <button mat-menu-item routerLink="/missolicitudes"> Mis Solicitudes </button>
+        <button mat-menu-item routerLink="/solicitudesrecibidas"> Solicitudes Recibidas </button>
+        <button mat-menu-item routerLink="/perfil"> Editar Perfil </button>
+        <button mat-menu-item routerLink="/"> Cerrar Sesión </button>
+    </mat-menu>
+</header>   

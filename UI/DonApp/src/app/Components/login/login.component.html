@@ -1,0 +1,21 @@
+<div class="container-fluid h-100 bg-celeste">
+  <div>    
+    <br>
+    <h1  style="margin: 0 0 0px; text-align:center; color: rgb(255, 255, 255); font-family: fangsong; font-size: xxX-large; text-decoration: none;">DONAPP</h1>
+</div>
+  <form style="padding-top:60%">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Usuario</label>
+          <input type="usuario" class="form-control" name="usuario"
+           id="usuarioLogin" aria-describedby="usuariLoginHelp" [(ngModel)]="usuario"> 
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Contraseña</label>
+            <input type="password" class="form-control" name="contrasenia"
+             id="passwordLogin" aria-describedby="passwordLoginHelp" [(ngModel)]="contrasenia">
+        </div>
+        <div class="d-flex justify-content-center mt-5">
+            <button type="button" (click)="ingresar()" class="btnradius">Ingresar</button>
+        </div>
+      </form>
+</div>

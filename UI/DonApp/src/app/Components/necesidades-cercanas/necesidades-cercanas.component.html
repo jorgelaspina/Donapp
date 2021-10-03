@@ -1,0 +1,38 @@
+<div>
+    <app-header></app-header>
+</div>
+<div class="d-flex justify-content-center windows-name bg-gris text-black">
+    Necesidades Cercanas a ti
+</div>
+<div class="with-margin-top">
+<mat-grid-list cols="5" class="grid-bg" rowHeight="25px"  *ngFor="let dataItem of necesidadesCercanas">
+    <mat-grid-tile class="white-tile" colspan="5" browspan="1">
+    </mat-grid-tile>
+    <mat-grid-tile class="color-tile" colspan="4" browspan="1">
+        <div class="text-inside-grid">{{dataItem.titulo}}</div>
+    </mat-grid-tile>
+    <mat-grid-tile class="color-tile" colspan="1" rowspan="3">
+        <img src="/assets/dar.png" height="50px;" width="50px;" title="Ofrecer donación" (click)="ofrecerDonacion(dataItem)">
+    </mat-grid-tile>
+    <mat-grid-tile class="color-tile" colspan="4" rowspan="1">
+        <div class="text-inside-grid-small">{{dataItem.descripcion}}</div>
+    </mat-grid-tile>
+    <mat-grid-tile class="color-tile" colspan="2" rowspan="1">
+        <div class="text-inside-grid">
+        <img src="./assets/Posi.png" height="19px;" width="12px;" style="margin: 5px;"/> {{dataItem.distancia}} Km.
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile class="color-tile" colspan="2" rowspan="1">
+        <div class="text-inside-grid"><img src="./assets/user.png" height="20px;" width="20px;" style="margin: 5px;"/>{{dataItem.nombre}} {{dataItem.apellido}}</div>
+    </mat-grid-tile>
+</mat-grid-list>
+</div>
+
+
+<footer class="main-footer">
+    <div class="d-flex justify-content-center bg-azul text-white">
+        <button class="btnradius" type="button" routerLink="/creardonacion">
+            Crear Donación
+        </button>
+    </div>
+</footer>
