@@ -7,7 +7,7 @@ import { Observable} from 'rxjs';
 })
 export class ServicioSharedService {
 
-  readonly APIUrl ="http://192.168.0.95:55481/api"
+  readonly APIUrl ="http://localhost:55481/api"
   private userId:number | undefined;
 
   constructor(private http:HttpClient) {}

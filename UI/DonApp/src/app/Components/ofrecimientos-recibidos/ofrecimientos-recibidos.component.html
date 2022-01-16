@@ -2,7 +2,7 @@
     <app-header></app-header>
 </div>
 <div class="d-flex justify-content-center windows-name bg-gris text-black">
-    Solicitudes Recibidas
+    Ofrecimientos Recibidos
 </div>
 <div class="with-margin-top justify-content-center">
 <mat-carousel
@@ -20,14 +20,13 @@
 >
   <mat-carousel-slide
     #matCarouselSlide
-    *ngFor="let slide of solicitudesrecibidas; let i = index"
+    *ngFor="let slide of ofrecimientos; let i = index"
     overlayColor="white"
     [hideOverlay]="false"
   >
   <div class="container" style="margin: 50px 0px 0px 0px; text-align: center;">
     <div class="row">
-        <div class="col-12" *ngIf="slide.tipoSolicitud === 'solicitudDonacion'"><h3><img class="mr5" src="./assets/user.png" height="20px;" width="20;"/>{{slide.nombreUsuario}} te solicita:</h3></div>
-        <div class="col-12" *ngIf="slide.tipoSolicitud === 'ofrecimientoDonacion'"><h3><img class="mr5" src="./assets/user.png" height="20px;" width="20;"/>{{slide.nombreUsuario}} te ofrece:</h3></div>
+        <div class="col-12"><h3><img class="mr5" src="./assets/user.png" height="20px;" width="20;"/>{{slide.nombreUsuario}} te ofrece:</h3></div>
     </div>
     <div class="row">
         <div class="col-xs"><h3>{{slide.titulo}}</h3></div>

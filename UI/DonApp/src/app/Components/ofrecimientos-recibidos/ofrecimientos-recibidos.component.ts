@@ -9,13 +9,13 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-solicitudes-recibidas',
-  templateUrl: './solicitudes-recibidas.component.html',
-  styleUrls: ['./solicitudes-recibidas.component.css']
+  selector: 'app-ofrecimientos-recibidos',
+  templateUrl: './ofrecimientos-recibidos.component.html',
+  styleUrls: ['./ofrecimientos-recibidos.component.css']
 })
-export class SolicitudesRecibidasComponent implements OnInit {
+export class OfrecimientosRecibidosComponent implements OnInit {
 
-  solicitudesrecibidas:any=[];
+  ofrecimientos:any=[];
 
   constructor(
     private solicitudService: SolicitudService,
@@ -34,12 +34,14 @@ export class SolicitudesRecibidasComponent implements OnInit {
       contrasenia:""
     }
     this.solicitudService.getSolicitudesRecibidas(user).subscribe(data=>{
-      this.solicitudesrecibidas=data.filter((solicitud:any) => solicitud["tipoSolicitud"] === 'solicitudDonacion');
+      this.ofrecimientos = data.filter((solicitud:any) => solicitud["tipoSolicitud"] === 'ofrecimientoDonacion')
     });
   }
+
   ngOnInit(): void {
     this.refreshSolicitudesRecibidas();
   }
+
   aceptarSolicitud(dataItem:any){
     const SolEst = {
       ID:dataItem.ID,
@@ -52,16 +54,19 @@ export class SolicitudesRecibidasComponent implements OnInit {
     const NecEst = {
       ID:dataItem.ID_Necesidad,
       estado:"Atendido"
-    }
-    console.log(dataItem)
+    }    
     this.solicitudService.estadoSolicitud(SolEst).subscribe(data=>{
-      this.servicioDonacion.estadoDonacion(DonEst).subscribe(rslt=>{
-        console.log("Estado de Donacion: Confirmado", DonEst);
-      });
-      console.log("Estado de Solicitud: Aceptado", SolEst);
-      this.crearConversacion(dataItem.ID);
-      console.log(dataItem.ID);
-    })}
+        this.servicioNecesidad.estadoNecesidad(NecEst).subscribe(rslt=>{
+          this.servicioDonacion.estadoDonacion(DonEst).subscribe(rslt2=>{
+            console.log("Estado de Donacion: Confirmado", DonEst);
+          })          
+          console.log("Estado de Necesidad: Atendido", NecEst);
+        });
+        console.log("Estado de Solicitud: Aceptado", SolEst);
+        this.crearConversacion(dataItem.ID);
+        console.log(dataItem.ID);
+      })
+  }
 
   rechazarSolicitud(dataItem:any){}
 
@@ -70,9 +75,10 @@ export class SolicitudesRecibidasComponent implements OnInit {
     const conv = { ID_Solicitud:Sol}
     this.servicioConversacion.abrirConversacion(conv).subscribe(res2=>{
       let dialogRef = this.dialogService.openAcceptDialog(
-        {titulo:res2, mensaje: "Ahora puedes contactarte con el solicitante", botonConfirm: 'Entendido', botonCancel: 'NA'}
+        {titulo:res2, mensaje: "Ahora puedes contactarte con el donante", botonConfirm: 'Entendido', botonCancel: 'NA'}
         );
         this.router.navigateByUrl("/conversaciones/"+Sol.ID); 
-    });    
+    });
+    
   }
 }

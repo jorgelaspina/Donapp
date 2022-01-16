@@ -4,6 +4,7 @@ import { DialogService } from 'src/app/services/dialog.service';
 import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { DonacionesService } from 'src/app/services/donaciones.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -20,30 +21,53 @@ export class DonacionesCercanasComponent implements OnInit {
     private solicitudService: SolicitudService,
     private usuarioService: UsuarioService,
     private servicio: ServicioSharedService,
-    private donacionesService: DonacionesService) { }
+    private donacionesService: DonacionesService,
+    private route: ActivatedRoute) { }
 
   donacionesCercanas:any=[];
   latitud:any;
   longitud:any;
+  titulo:any;
 
   ngOnInit(): void {
       this.servicio.getPosition().then(pos => {
       this.latitud = pos.lat;
       this.longitud = pos.lng;
-      this.refreshDonacionesCercanas();})
-  }
+      this.titulo = this.route.snapshot.params['titulo'];
+      console.log("ngOnInit  titulo ---> " + this.titulo);
+      this.refreshDonaciones();
 
-  refreshDonacionesCercanas(){
-    const val = {
-      latitud:this.latitud,
-      longitud:this.longitud,
-      usuarioID:this.usuarioService.getUserId()};
-      console.log('val', val)
-    this.donacionesService.getDonacionesCercanas(val).subscribe(data=>{
-      this.donacionesCercanas=data;
-    });
-  }
+    })
+  } 
 
+  refreshDonaciones()
+  {
+    if(this.titulo==undefined)
+    {
+      const val = {
+        latitud:this.latitud,
+        longitud:this.longitud,
+        usuarioID:this.usuarioService.getUserId()};
+      this.donacionesService.getDonacionesCercanas(val).subscribe(data=>{
+        this.donacionesCercanas=data;
+        console.log(data);
+      });
+    }
+    else
+    {
+      const val = {
+        latitud:this.latitud,
+        longitud:this.longitud,
+        usuarioID:this.usuarioService.getUserId(),
+        titulo:this.titulo};
+      this.donacionesService.getDonacionesRelacionadas(val).subscribe(data=>{
+        this.donacionesCercanas=data;
+        console.log(val)
+        console.log(data);
+      });
+    }
+  }
+  
   solicitarDonacion(dataItem:any){
     const solicitud = {
       tipoSolicitud:"solicitudDonacion"
@@ -60,6 +84,7 @@ export class DonacionesCercanasComponent implements OnInit {
           let dialogRef = this.dialogService.openAcceptDialog(
             {titulo:'Confirmación', mensaje: res2.toString(), botonConfirm: 'Aceptar', botonCancel: 'NA'}
             );
+            this.refreshDonaciones();
         });             
       };
     });    

@@ -4,6 +4,7 @@ import { NecesidadesService } from 'src/app/services/necesidades.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { Router } from '@angular/router';
+import { SolicitudService } from 'src/app/services/solicitud.service';
 
 @Component({
   selector: 'app-mis-necesidades',
@@ -17,12 +18,18 @@ export class MisNecesidadesComponent implements OnInit {
     private servicioNecesidades:NecesidadesService,
     private servicioUsuario:UsuarioService,
     private dialogService:DialogService,
-    private router: Router
+    private router: Router,
+    private servicioSolicitud:SolicitudService
     ) { } 
 
   misNecesidades:any=[];
+  misNecesidadesFiltradas:any=[]
+  solicitud:any;
   latitud:any;
   longitud:any;
+  filtroEstado=['Todos', 'Disponible', 'Atendido','Resuelto'];
+  seleccionadoEstado: string = 'Todos';
+
 
   ngOnInit(): void {
       this.servicio.getPosition().then(pos => {
@@ -37,13 +44,18 @@ export class MisNecesidadesComponent implements OnInit {
       nombreUsuario:"",
       contrasenia:""
     }
-      this.servicioNecesidades.getMisNecesidades(user).subscribe(data=>{
+      this.servicioNecesidades.getMisNecesidades(user.ID).subscribe(data=>{
       this.misNecesidades=data;
+      this.misNecesidadesFiltradas = this.misNecesidades
     });
   }
-  abrirConversacion(Id:any)
+  abrirConversacion(nec:any)
   {
-    this.router.navigateByUrl("/conversaciones/"+Id);    
+    const necParam = {ID:nec.ID};
+      this.servicioSolicitud.postSolicitudDesdeNecesidad(necParam).subscribe(data=>{       
+        this.solicitud=data;
+        this.router.navigateByUrl("/conversaciones/"+this.solicitud[0].ID);
+        })
   }
   eliminarNecesidad(nec:any){
     const estado = {
@@ -62,9 +74,31 @@ export class MisNecesidadesComponent implements OnInit {
         }
       });
     }
-    valorarDonacion(don:any)
+    obtenerSolicitud(Id:any){
+      const nec = {ID:Id};
+      this.servicioSolicitud.postSolicitudDesdeNecesidad(nec).subscribe(data=>{
+      this.solicitud=data;
+      console.log("step2")
+      console.log(this.solicitud)
+      });
+    }
+
+    filtrar(event:any)
     {
-      console.log("Necesidad ID :"+don.ID)
-      this.router.navigateByUrl("/valorardonacion/"+don.ID); 
+      const estadoFiltrado = event.target.value
+      if(estadoFiltrado == "Todos")
+        this.misNecesidadesFiltradas = this.misNecesidades
+      else
+        this.misNecesidadesFiltradas = this.misNecesidades.filter((necesidad:any) => necesidad["estado"] === estadoFiltrado)
+      
+    }
+
+    valorarDonacion(nec:any)
+    {
+      const necParam = {ID:nec.ID};
+      this.servicioSolicitud.postSolicitudDesdeNecesidad(necParam).subscribe(data=>{       
+        this.solicitud=data;
+        this.router.navigateByUrl("/valorardonacion/"+this.solicitud[0].ID);
+        })
     }
 }

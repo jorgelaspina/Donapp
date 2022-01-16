@@ -39,14 +39,14 @@
         </div>
         <div class="form-group" style="padding-bottom: 10px;">          
           <img src="./assets/Posi.png" height="22px;" width="15;"/>
-          <label>Ubicación: </label><label>{{this.direccion.results[0].formatted_address}}</label>       
+          <label>Ubicación: </label><label>{{this.address}}</label>       
           </div>
       </form>
 </div>
 
 <footer class="main-footer">
     <div class="d-flex justify-content-center bg-azul text-white">
-      <button type="button" (click)="crearDonacion()" routerLink="/necesidadescercanas" class="btnradius">Cargar</button>
+      <button type="button" (click)="crearDonacion()" class="btnradius">Cargar</button>
     </div>
 </footer>
 

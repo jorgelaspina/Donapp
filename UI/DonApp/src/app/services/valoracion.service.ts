@@ -5,18 +5,14 @@ import { Observable} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class MensajeService {
+export class ValoracionService {
 
   readonly APIUrl ="http://localhost:55481/api"
   
   constructor(private http:HttpClient) {  
    }
-
-  getMensajesDeConversacion(val:any){
-    return this.http.get<any>(this.APIUrl+'/mensaje/'+val)
-  }
-
-  nuevoMensaje(mensaje:any){    
-    return this.http.post(this.APIUrl+'/mensaje', mensaje);  
+  
+  addValoracion(val:any){
+    return this.http.post<any>(this.APIUrl+'/valoracion',val)
   }
 }

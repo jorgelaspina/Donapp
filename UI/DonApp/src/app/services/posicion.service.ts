@@ -14,11 +14,11 @@ export class PosicionService {
   constructor(private http:HttpClient) {  
   }
 
-  readonly GoogleUrl ="https://maps.googleapis.com/maps/api/geocode/json?latlng=";
-  readonly APIKey = 'AIzaSyDTqbLNPrxz0zUf0KNoqa5AQ6cuJg7m3HY'
+  readonly GoogleUrl ="https://revgeocode.search.hereapi.com/v1/revgeocode?at=";
+  readonly APIKey = '0Sad-6LIIRxps1p_yu78pdbZVYK868SFuWroMpREGAU'
 
   getDomicilio(lat:string, long:string){
-    this.var = this.GoogleUrl+lat+","+long+"&key="+this.APIKey;
+    this.var = this.GoogleUrl+lat+"%2C"+long+"&lang=en-US&apikey="+this.APIKey;
     console.log(this.var);
     return fetch(this.var)
     .then(response => response.json())

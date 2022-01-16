@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
     {
         public string Post(Mensaje m)
         {
-            string query = @"insert into dbo.Mensaje SELECT GETDATE()," +
+            string query = @"insert into dbo.Mensaje SELECT GETDATE(), " +
                 m.ID_Conversacion + @", '" +
                 m.mensaje + @"', 1," +
                 m.ID_UsuarioEmisor;       

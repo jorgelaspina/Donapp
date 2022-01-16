@@ -5,20 +5,24 @@
 <div class="d-flex justify-content-center windows-name bg-gris text-black">
     Mis Donaciones
 </div>
-
-<div class="with-margin-top">
-    <mat-grid-list cols="6" class="grid-bg" rowHeight="30px"  *ngFor="let dataItem of misDonaciones">
+<div class="d-flex justify-content-left filter-bar bg-white text-black">
+    <select class="form-select" style="border-radius:2rem; width: 50%; margin: 5px; font-size: 10px; border-color: #b870d4fa;" [(ngModel)]="seleccionadoEstado" (change)="filtrar($event)">
+        <option *ngFor="let n of filtroEstado"> {{ n }} </option>
+    </select>
+</div>
+<div class="with-margin-top">    
+    <mat-grid-list cols="6" class="grid-bg" rowHeight="30px"  *ngFor="let dataItem of misDonacionesFiltradas">
         <mat-grid-tile class="white-tile" colspan="6" browspan="1">
         </mat-grid-tile>
         <mat-grid-tile class="color-tile" colspan="4" browspan="1">
             <div class="text-inside-grid">{{dataItem.titulo}}</div>
         </mat-grid-tile>
-        <mat-grid-tile class="color-tile" colspan="1" rowspan="1">
+        <mat-grid-tile class="color-tile" colspan="1" rowspan="1">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
             <div *ngIf="dataItem.estado === 'Disponible'" class="icon-active tituloIcono">
             Eliminar
             </div>
             <div *ngIf="dataItem.estado === 'Ofrecido'" class="icon-active tituloIcono">
-           Ver Solicitud
+           Cancelar
             </div>
             <div *ngIf="dataItem.estado === 'Confirmado'" class="icon-active tituloIcono">
             Ver Solicitud
@@ -28,8 +32,8 @@
             <div *ngIf="dataItem.estado === 'Disponible'" class="icon-active">
             <img src="/assets/eliminar.png" height="25px;" width="25px;" (click)="eliminarDonacion(dataItem)" >
             </div>
-            <div *ngIf="dataItem.estado === 'Atendido'" class="icon-active">
-            <img src="/assets/dar.png" height="25px;" width="25px;">
+            <div *ngIf="dataItem.estado === 'Ofrecido'" class="icon-active">
+            <img src="/assets/eliminar.png" height="25px;" width="25px;" (click)="eliminarDonacionOfrecida(dataItem)">
             </div>
             <div *ngIf="dataItem.estado === 'Confirmado'" class="icon-active">
             <img src="/assets/dar.png" height="25px;" width="25px;">

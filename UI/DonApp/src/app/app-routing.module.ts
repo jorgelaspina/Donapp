@@ -14,18 +14,25 @@ import { NotificacionesComponent } from './Components/notificaciones/notificacio
 import { PerfilComponent } from './Components/perfil/perfil.component';
 import { SolicitudesRecibidasComponent } from './Components/solicitudes-recibidas/solicitudes-recibidas.component';
 import { CrearnecesidadComponent } from './Components/crear-necesidad/crear-necesidad.component';
+import { MisSolicitudesComponent } from './Components/mis-solicitudes/mis-solicitudes.component';
+import { OfrecimientosRecibidosComponent } from './Components/ofrecimientos-recibidos/ofrecimientos-recibidos.component';
+
 
 const routes: Routes = [
 {path:'necesidadescercanas', component:NecesidadesCercanasComponent},
+{path:'necesidadescercanas/:titulo', component:NecesidadesCercanasComponent},
 {path:'creardonacion', component:CrearDonacionComponent},
 {path:'crearnecesidad',component:CrearnecesidadComponent},
 {path:'principal', component:PrincipalComponent},
 {path:'', component:LoginComponent},
 {path:'donacionescercanas', component:DonacionesCercanasComponent},
+{path:'donacionescercanas/:titulo', component:DonacionesCercanasComponent},
 {path:'solicitud', component:SolicitudesComponent},
 {path:'misnecesidades', component:MisNecesidadesComponent},
+{path:'missolicitudes', component:MisSolicitudesComponent},
 {path:'misdonaciones', component:MisDonacionesComponent},
 {path:'solicitudesrecibidas', component:SolicitudesRecibidasComponent},
+{path:'ofrecimientosrecibidos', component:OfrecimientosRecibidosComponent},
 {path:'valorardonacion/:id', component:ValorarDonacionComponent},
 {path:'conversaciones', component:ConversacionesComponent},
 {path:'conversaciones/:id', component:ConversacionesComponent},

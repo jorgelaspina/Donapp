@@ -7,7 +7,7 @@ import { Observable} from 'rxjs';
 })
 export class NecesidadesService {
 
-  readonly APIUrl ="http://192.168.0.95:55481/api"
+  readonly APIUrl ="http://localhost:55481/api"
   
   constructor(private http:HttpClient) {  
    }
@@ -21,7 +21,7 @@ export class NecesidadesService {
   }
 
   getMisNecesidades(val:any){
-  return this.http.post<any>(this.APIUrl+'/necesidad/misnecesidades',val)
+  return this.http.get<any>(this.APIUrl+'/necesidad/misnecesidades/'+val)
   }
 
   estadoNecesidad(val:any){
@@ -30,4 +30,7 @@ export class NecesidadesService {
   eliminarNecesidad(val:any){
     return this.http.delete<any>(this.APIUrl+'/necesidad/'+val)
   }
+  getNecesidadesRelacionadas(val:any){
+    return this.http.post<any>(this.APIUrl+'/necesidad/necesidadesRelacionadas',val)
+  }  
 }

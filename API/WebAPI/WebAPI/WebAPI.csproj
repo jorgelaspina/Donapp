@@ -177,6 +177,7 @@
     </Compile>
     <Compile Include="Models\Estado.cs" />
     <Compile Include="Models\Mensaje.cs" />
+    <Compile Include="Models\Relacion.cs" />
     <Compile Include="Models\Valoracion.cs" />
     <Compile Include="Models\Conversacion.cs" />
     <Compile Include="Models\Categoria.cs" />

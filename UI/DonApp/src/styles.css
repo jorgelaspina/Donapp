@@ -72,6 +72,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	width: 100%;
 	z-index: 2;
 }
+.filter-bar{
+	position: fixed;
+	left: 0px;
+	top: 70px;
+	width: 100%;
+	z-index: 2;
+}
+
 .mr5{
 	margin-right: 5px;
 }

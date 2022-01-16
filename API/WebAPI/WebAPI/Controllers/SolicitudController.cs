@@ -74,7 +74,7 @@ namespace WebAPI.Controllers
                         ON S.Id_UsuarioEmisor = U.ID
                         INNER JOIN [dbo].[Estado] E
                         ON E.ID = S.ID_Estado
-                        WHERE D.[ID_Usuario] = " + U.ID +
+                        WHERE S.ID_Estado = 8 AND D.[ID_Usuario] = " + U.ID +
                         @" UNION 
                         SELECT S.ID
                           ,U.nombreUsuario
@@ -92,7 +92,7 @@ namespace WebAPI.Controllers
                        ON S.Id_UsuarioEmisor = U.ID
                         INNER JOIN [dbo].[Estado] E
                        ON E.ID = S.ID_Estado
-                        WHERE N.[ID_Usuario] = " + U.ID;
+                        WHERE S.ID_Estado = 8 AND N.[ID_Usuario] = " + U.ID;
 
             DataTable table = new DataTable();
             using (var con = new SqlConnection(ConfigurationManager.
@@ -105,7 +105,39 @@ namespace WebAPI.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, table);
         }
-        
+        [Route("api/Solicitud/missolicitudes")]
+        public HttpResponseMessage MisSolicitudes(Usuario U)
+        {
+            string query = @"SELECT S.ID
+                          ,U.nombreUsuario
+                          ,D.titulo
+	                      ,CAST(CAST(S.fechaCreacion AS DATE) AS VARCHAR) as 'fechaCreacion'
+	                      ,D.direccion
+                          ,E.estado
+                          ,S.ID_Donacion
+                          ,S.ID_Necesidad
+                          ,'solicitudDonacion' as tipoSolicitud                            
+                        FROM [WEBAPPDB].[dbo].[Solicitud] S
+                        INNER JOIN [dbo].[Donacion] D
+                        ON S.ID_Donacion = D.ID
+                        INNER JOIN [dbo].[Usuario] U 
+                        ON D.Id_Usuario = U.ID
+                        INNER JOIN [dbo].[Estado] E
+                        ON E.ID = S.ID_Estado
+                        WHERE S.[ID_UsuarioEmisor] = " + U.ID;
+
+            DataTable table = new DataTable();
+            using (var con = new SqlConnection(ConfigurationManager.
+                ConnectionStrings["WEBAPPDB"].ConnectionString))
+            using (var cmd = new SqlCommand(query, con))
+            using (var da = new SqlDataAdapter(cmd))
+            {
+                cmd.CommandType = CommandType.Text;
+                da.Fill(table);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, table);
+        }
+
         [Route("api/solicitud/estado")]
         public HttpResponseMessage Post(Estado S)
         {
@@ -135,6 +167,60 @@ namespace WebAPI.Controllers
                         INNER JOIN [dbo].[Donacion] D
                         ON S.ID_Donacion = D.ID
                         WHERE S.[ID_Necesidad] = " + N.ID;
+
+            DataTable table = new DataTable();
+            using (var con = new SqlConnection(ConfigurationManager.
+                ConnectionStrings["WEBAPPDB"].ConnectionString))
+            using (var cmd = new SqlCommand(query, con))
+            using (var da = new SqlDataAdapter(cmd))
+            {
+                cmd.CommandType = CommandType.Text;
+                da.Fill(table);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, table);
+        }
+        [Route("api/solicitud/pordonacion/{id}")]
+        [HttpGet]
+        public HttpResponseMessage getSolicitudPorDonacion(int id)
+        {
+            string query = @"
+                           SELECT S.ID
+                          ,D.titulo
+	                      ,CAST(CAST(S.fechaCreacion AS DATE) AS VARCHAR) as 'fechaCreacion'
+	                      ,D.direccion
+                          ,S.ID_Donacion             
+                        FROM [WEBAPPDB].[dbo].[Solicitud] S
+                        INNER JOIN [dbo].[Donacion] D
+                        ON S.ID_Donacion = D.ID
+                        WHERE S.[ID_Donacion] = " + id;
+
+            DataTable table = new DataTable();
+            using (var con = new SqlConnection(ConfigurationManager.
+                ConnectionStrings["WEBAPPDB"].ConnectionString))
+            using (var cmd = new SqlCommand(query, con))
+            using (var da = new SqlDataAdapter(cmd))
+            {
+                cmd.CommandType = CommandType.Text;
+                da.Fill(table);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, table);
+        }
+        [Route("api/solicitud/{id}")]
+        [HttpGet]
+        public HttpResponseMessage getSolicitud(int id)
+        {
+            string query = @"
+                           SELECT S.ID
+                          ,D.titulo
+                          ,S.tipoSolicitud
+	                      ,CAST(CAST(S.fechaCreacion AS DATE) AS VARCHAR) as 'fechaCreacion'
+	                      ,D.direccion
+                          ,S.ID_Donacion
+                          ,S.ID_Necesidad
+                        FROM [WEBAPPDB].[dbo].[Solicitud] S
+                        INNER JOIN [dbo].[Donacion] D
+                        ON S.ID_Donacion = D.ID
+                        WHERE S.ID = " + id;
 
             DataTable table = new DataTable();
             using (var con = new SqlConnection(ConfigurationManager.

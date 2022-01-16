@@ -34,5 +34,26 @@ namespace WebAPI.Controllers
                 return query;
             }
         }
+
+        [Route("api/conversacion/solicitud/{id}")]
+        [HttpGet]
+        public HttpResponseMessage ConversacionDeSolicitud(int id)
+        {
+            string query = @"
+                           SELECT [ID],[fechaCreacion],[ID_Solicitud],[estado]
+                            FROM [WEBAPPDB].[dbo].[Conversacion]
+                            WHERE [ID_Solicitud] =" + id;
+            DataTable table = new DataTable();
+            using (var con = new SqlConnection(ConfigurationManager.
+                ConnectionStrings["WEBAPPDB"].ConnectionString))
+            using (var cmd = new SqlCommand(query, con))
+            using (var da = new SqlDataAdapter(cmd))
+            {
+                cmd.CommandType = CommandType.Text;
+                da.Fill(table);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, table);
+        }
+
     }
 }

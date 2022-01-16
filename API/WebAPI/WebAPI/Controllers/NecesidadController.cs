@@ -20,13 +20,19 @@ namespace WebAPI.Controllers
             string query = @"
                            SELECT N.[ID],CONVERT(VARCHAR(10), [fechaCreacion],120) as 'fechaCreacion',[titulo],[descripcion],[latitud],[longitud]
                                     ,[direccion],[ID_Categoria],[ID_Estado],N.[ID_Usuario],P.[nombre],P.[apellido],
-                                    dbo.dn_fn_CalculaDistancia('" + p.latitud + @"','" +p.longitud + @"', [latitud],[longitud],'K') as distancia  
+                                    dbo.dn_fn_CalculaDistancia('" + p.latitud + @"','" + p.longitud + @"', [latitud],[longitud],'K') as distancia  
                                 FROM [WEBAPPDB].[dbo].[Necesidad] N
                                 INNER JOIN Usuario U
                                 ON U.Id = N.ID_Usuario
                                 LEFT JOIN Persona P
                                 ON P.ID_Usuario = U.ID
-                                WHERE N.[ID_Usuario] <> "+p.usuarioID;
+                                WHERE [ID_Estado] = 2 
+                                AND N.[ID_Usuario] <> " + p.usuarioID +
+                                @" AND NOT EXISTS(
+                                                 SELECT * FROM [dbo].[Solicitud] S
+                                                 WHERE S.Id_UsuarioEmisor = " + p.usuarioID +
+                                                 @"AND S.Id_Necesidad = N.ID AND S.Id_Estado in (8,9))";
+
             DataTable table = new DataTable();
             using (var con = new SqlConnection(ConfigurationManager.
                 ConnectionStrings["WEBAPPDB"].ConnectionString))
@@ -69,14 +75,15 @@ namespace WebAPI.Controllers
             }
         }
 
-        [Route("api/necesidad/misnecesidades")]
-        public HttpResponseMessage PostMisDonaciones(Usuario U)
+        [Route("api/necesidad/misnecesidades/{id}")]
+        [HttpGet]
+        public HttpResponseMessage GetMisNecesidades(int id)
         {
             string query = @"
                            SELECT N.[ID],CONVERT(VARCHAR(10), [fechaCreacion],120) as 'fechaCreacion',[titulo],[descripcion],[latitud],[longitud],[direccion],[ID_Categoria],[estado]
                             ,[ID_Usuario] FROM
                             [WEBAPPDB].[dbo].[Necesidad] N
-                            INNER JOIN [Estado] E ON E.ID = N.ID_Estado WHERE E.estado <> 'No Disponible' and [ID_Usuario] = " + U.ID;
+                            INNER JOIN [Estado] E ON E.ID = N.ID_Estado WHERE E.estado <> 'No Disponible' and [ID_Usuario] = " + id;
             DataTable table = new DataTable();
             using (var con = new SqlConnection(ConfigurationManager.
                 ConnectionStrings["WEBAPPDB"].ConnectionString))
@@ -107,6 +114,37 @@ namespace WebAPI.Controllers
         public HttpResponseMessage delete(int ID)
         {
             string query = @"DELETE From Necesidad where Id = " + ID;
+            DataTable table = new DataTable();
+            using (var con = new SqlConnection(ConfigurationManager.
+                ConnectionStrings["WEBAPPDB"].ConnectionString))
+            using (var cmd = new SqlCommand(query, con))
+            using (var da = new SqlDataAdapter(cmd))
+            {
+                cmd.CommandType = CommandType.Text;
+                da.Fill(table);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, table);
+        }
+        [Route("api/necesidad/necesidadesRelacionadas")]
+        public HttpResponseMessage PostNecesidadesRelacionadas(Relacion r)
+        {
+            string query = @"
+                            
+                           SELECT N.[ID],CONVERT(VARCHAR(10), [fechaCreacion],120) as 'fechaCreacion',[titulo],[descripcion],[latitud],[longitud]
+                                    ,[direccion],[ID_Categoria],[ID_Estado],N.[ID_Usuario],P.nombre, P.apellido,
+                                    dbo.dn_fn_CalculaDistancia('" + r.latitud + @"','" + r.longitud + @"', [latitud],[longitud],'K') as distancia
+                                    ,COUNT(1) as 'MatchLevel'
+                            FROM [WEBAPPDB].[dbo].[Necesidad] N
+                            INNER JOIN(
+                                        SELECT Value FROM STRING_SPLIT('" + r.titulo + @"', ' ') where LEN(Value) > 3
+                                       ) T ON N.Titulo like '%' + T.value + '%'
+                            INNER JOIN Usuario U ON U.Id = N.ID_Usuario
+                            LEFT JOIN Persona P ON P.ID_Usuario = U.ID
+                            WHERE [ID_Estado] = 2 
+                            AND NOT EXISTS (SELECT * FROM [WEBAPPDB].[dbo].[Solicitud] S WHERE S.[ID_Necesidad] = N.[ID] AND S.[ID_UsuarioEmisor] = " + r.usuarioID + @")
+                            AND N.[ID_Usuario] <> " + r.usuarioID + @"
+                             GROUP BY N.[ID], N.[fechaCreacion], N.[titulo], N.[descripcion], N.[latitud], N.[longitud], N.[direccion], N.[ID_Categoria], N.[ID_Estado], N.[ID_Usuario], P.Nombre, P.Apellido"
+                            ;
             DataTable table = new DataTable();
             using (var con = new SqlConnection(ConfigurationManager.
                 ConnectionStrings["WEBAPPDB"].ConnectionString))

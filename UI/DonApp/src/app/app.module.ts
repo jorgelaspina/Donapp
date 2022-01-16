@@ -32,6 +32,9 @@ import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { PosicionService } from './services/posicion.service';
 import { CrearnecesidadComponent } from './Components/crear-necesidad/crear-necesidad.component';
 import { AcceptComponent } from './Components/dialogs/accept/accept.component';
+import { MisSolicitudesComponent } from './Components/mis-solicitudes/mis-solicitudes.component';
+import { DatePipe } from '@angular/common';
+import { OfrecimientosRecibidosComponent } from './Components/ofrecimientos-recibidos/ofrecimientos-recibidos.component';
 
 
 
@@ -49,12 +52,14 @@ import { AcceptComponent } from './Components/dialogs/accept/accept.component';
     MisNecesidadesComponent,
     MisDonacionesComponent,
     SolicitudesRecibidasComponent,
+    OfrecimientosRecibidosComponent,
     ValorarDonacionComponent,
     ConversacionesComponent,
     NotificacionesComponent,
     PerfilComponent,
     CrearnecesidadComponent,
-    AcceptComponent
+    AcceptComponent,
+    MisSolicitudesComponent
   ],
   imports: [
     BrowserModule,
@@ -69,9 +74,9 @@ import { AcceptComponent } from './Components/dialogs/accept/accept.component';
     MatButtonModule,
     MatToolbarModule,
     MatMenuModule,
-    MatCarouselModule.forRoot()
+      MatCarouselModule.forRoot()
   ],
-  providers: [ServicioSharedService, SolicitudService,PosicionService],
+  providers: [ServicioSharedService,SolicitudService,PosicionService,DatePipe,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

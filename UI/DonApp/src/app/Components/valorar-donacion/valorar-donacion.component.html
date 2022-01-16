@@ -5,14 +5,14 @@
     Valorar Donación
 </div>
 <div class="with-margin-top justify-content-center">
-  <div class="container" style="margin: 50px 0px 0px 0px; text-align: center;">
+  <div class="container" style="margin: 30px 0px 0px 0px; text-align: center;">
     <div class="row" style="padding-top: 50px;">
-        <div class="col-12"><h3>¿En que estado se encontraba el articulo que recibiste?</h3></div>
+        <div class="col-12"><h3>¿En qué estado se encontraba el artículo que recibiste?</h3></div>
     </div>
     <div style="width: 100%; word-wrap: break-word;">
-        <p> {{Solicitud.titulo}}</p>
+        <p style="font-size: 24px"> {{Donacion.titulo}}</p>
     </div>
-    <div>
+    <div style="margin: 40px 0px 0px 0px;">
         <label for="exampleFormControlTextarea1">Estado del Artículo</label>
         <p class="clasificacion estrellas" style="text-align: center;">
              <input id="radio1" type="radio" name="estrellas" value="5" [(ngModel)]="estrellas"><!--

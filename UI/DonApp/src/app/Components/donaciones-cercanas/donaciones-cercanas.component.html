@@ -25,7 +25,11 @@
             </div>
         </mat-grid-tile>
         <mat-grid-tile class="color-tile" colspan="2" rowspan="1">
-            <div class="text-inside-grid"><img src="./assets/user.png" height="20px;" width="20px;" style="margin: 5px;"/>{{dataItem.Nombre}} {{dataItem.Apellido}}</div>
+            <div *ngIf="dataItem.PuntajeDonador < -0.599"   class="text-inside-grid"><img src="./assets/rate1.png" height="20px;" width="20px;" style="margin: 5px;"/>{{dataItem.Nombre}} {{dataItem.Apellido}}</div>
+            <div *ngIf="dataItem.PuntajeDonador > -0.599 && dataItem.PuntajeDonador < -0.199"   class="text-inside-grid"><img src="./assets/rate2.png" height="20px;" width="20px;" style="margin: 5px;"/>{{dataItem.Nombre}} {{dataItem.Apellido}}</div>
+            <div *ngIf="dataItem.PuntajeDonador > -0.199 && dataItem.PuntajeDonador < 0.199"   class="text-inside-grid"><img src="./assets/rate3.png" height="20px;" width="20px;" style="margin: 5px;"/>{{dataItem.Nombre}} {{dataItem.Apellido}}</div>
+            <div *ngIf="dataItem.PuntajeDonador > 0.199 && dataItem.PuntajeDonador < 0.599"   class="text-inside-grid"><img src="./assets/rate4.png" height="20px;" width="20px;" style="margin: 5px;"/>{{dataItem.Nombre}} {{dataItem.Apellido}}</div>
+            <div *ngIf="dataItem.PuntajeDonador > 0.599"   class="text-inside-grid"><img src="./assets/rate5.png" height="20px;" width="20px;" style="margin: 5px;"/>{{dataItem.Nombre}} {{dataItem.Apellido}}</div>
         </mat-grid-tile>
     </mat-grid-list>
     </div>

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve  --host 192.168.0.95 --ssl --ssl-key c:\\TFG\\SSL\\localhost.key  --ssl-cert c:\\TFG\\SSL\\localhost.crt",
+    "start": "ng serve  --host 192.168.100.7  --ssl --ssl-key c:\\TFG\\SSL\\localhost.key  --ssl-cert c:\\TFG\\SSL\\localhost.crt",    
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

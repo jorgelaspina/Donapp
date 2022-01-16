@@ -7,12 +7,15 @@ import { Observable} from 'rxjs';
 })
 export class ConversacionService {
 
-  readonly APIUrl ="http://192.168.0.95:55481/api"
+  readonly APIUrl ="http://localhost:55481/api"
   
   constructor(private http:HttpClient) {  
    }
 
   abrirConversacion(val:any){
     return this.http.post<any>(this.APIUrl+'/conversacion',val)
+  }
+  getConversacion(val:any){
+    return this.http.get<any>(this.APIUrl+'/conversacion/solicitud/'+val)
   }
 }
