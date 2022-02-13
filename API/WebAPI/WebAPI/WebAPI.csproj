@@ -241,6 +241,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="fotosPerfil\" />
     <Folder Include="Views\Categoria\" />
     <Folder Include="Views\Donacion\" />
   </ItemGroup>

@@ -130,5 +130,17 @@ export class NecesidadesCercanasComponent implements OnInit {
             this.longitud = pos.lng;
         })
     }
+  mostrarHistorialUsuario(id:any){
+    let dialogRef = this.dialogService.openHistorialDialog(
+      {titulo:"Historial del Usuario",
+      subtitulo: "Usuario Nombre",
+      mensaje: "En esta ventana se muestran las ultimas necesidades y donaciones del usuario solicitante. ID: "+ id,
+      puntajeDonador: 0.688,
+      botonConfirm: 'Cerrar',
+      botonCancel: 'NA', 
+      registros: []}
+      );
+  }
+  
   }
 

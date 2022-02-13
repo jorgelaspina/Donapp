@@ -49,10 +49,6 @@ export class SolicitudesRecibidasComponent implements OnInit {
       ID:dataItem.ID_Donacion,
       estado:"Confirmado"
     }
-    const NecEst = {
-      ID:dataItem.ID_Necesidad,
-      estado:"Atendido"
-    }
     console.log(dataItem)
     this.solicitudService.estadoSolicitud(SolEst).subscribe(data=>{
       this.servicioDonacion.estadoDonacion(DonEst).subscribe(rslt=>{
@@ -63,7 +59,23 @@ export class SolicitudesRecibidasComponent implements OnInit {
       console.log(dataItem.ID);
     })}
 
-  rechazarSolicitud(dataItem:any){}
+  rechazarSolicitud(dataItem:any){
+    const SolEst = {
+    ID:dataItem.ID,
+    estado:"Rechazado"
+  }
+  const DonEst = {
+    ID:dataItem.ID_Donacion,
+    estado:"Disponible"
+  }
+  console.log(dataItem)
+  this.solicitudService.estadoSolicitud(SolEst).subscribe(data=>{
+    this.servicioDonacion.estadoDonacion(DonEst).subscribe(rslt=>{
+      console.log("Estado de Donacion: Disponible", DonEst);
+    });
+    console.log("Estado de Solicitud: Rechazado", SolEst);
+    this.refreshSolicitudesRecibidas();
+  })}
 
   crearConversacion(Sol:any){
     console.log("Creando conversacion para Solicitud" + Sol)

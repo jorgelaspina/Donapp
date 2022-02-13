@@ -1,8 +1,8 @@
 
 <header id="main-header" class="fixed-top">
     <div class="d-flex justify-content-between text-white bg-azul">
-        <img [matMenuTriggerFor]="appMenu" src="./assets/usuario.png" height="40px;" width="40px;" style="margin: 5px 5px 5px 5px">
-        <h1  routerLink="/principal" style="margin: 0 0 0px; align-self:center; color: white; font-family: fangsong; font-size: xx-large; text-decoration: none;">DONAPP</h1>
+        <img [src]=fotoFullName [matMenuTriggerFor]="appMenu" height="45px;" width="45px;" style="object-fit: cover; margin: 3px 3px 3px 3px; border-radius: 50%;">
+        <img src="/assets/Logo.png" routerLink="/principal" height="50px;" width="250px;" style="margin: 1px 1px 1px 1px; object-fit: cover;"/>        
         <img src="/assets/Nomensajes.png"  routerLink="/notificaciones" height="35px;" width="46px;" style="margin: 5px 5px 5px 5px"/>
     </div>
     <mat-menu #appMenu="matMenu">

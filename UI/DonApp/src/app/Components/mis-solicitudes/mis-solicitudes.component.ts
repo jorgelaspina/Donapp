@@ -43,9 +43,15 @@ export class MisSolicitudesComponent implements OnInit {
     this.refreshMisSolicitudes();
   }
 
-  cancelarSolicitud(dataItem:any){}
-
-
+  cancelarSolicitud(dataItem:any){
+    const SolEst = {
+      ID:dataItem.ID,
+      estado:"Cancelado"
+    }    
+    this.solicitudService.estadoSolicitud(SolEst).subscribe(data=>{
+      console.log("Estado de Solicitud: Aceptado", SolEst);
+    })
+  }
   abrirConversacion(dataItem:any)
     {
       console.log(dataItem.ID)

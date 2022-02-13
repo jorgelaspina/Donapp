@@ -1,0 +1,84 @@
+<style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    th, td {
+    font-size: 12px;
+      text-align: left;
+      padding: 4px;
+    }
+    
+    tr:nth-child(even) {background-color: #f2f2f2;}
+</style>
+<div class="header">
+    <h2 mat-dialog-title>{{data?.titulo}}</h2>
+</div>
+
+<div mat-dialog-content>
+    <h3>
+        <div *ngIf="data.puntajeDonador < -0.599"><img src="./assets/rate1.png" height="20px;" width="20px;"/> {{data?.subtitulo}}</div>
+        <div *ngIf="data.puntajeDonador > -0.599 && data.puntajeDonador < -0.199"><img src="./assets/rate2.png" height="20px;" width="20px;"/> {{data?.subtitulo}}</div>
+        <div *ngIf="data.puntajeDonador > -0.199 && data.puntajeDonador < 0.199"><img src="./assets/rate3.png" height="20px;" width="20px;"/> {{data?.subtitulo}}</div>
+        <div *ngIf="data.puntajeDonador > 0.199 && data.puntajeDonador < 0.599"><img src="./assets/rate4.png" height="20px;" width="20px;"/> {{data?.subtitulo}}</div>
+        <div *ngIf="data.puntajeDonador > 0.599"><img src="./assets/rate5.png" height="20px;" width="20px;"/> {{data?.subtitulo}}</div>
+    </h3>
+    
+
+<table style="width:100%">
+  <tr>
+    <th>Fecha</th>
+    <th>Tipo</th>
+    <th>Articulo</th>
+  </tr>
+  <tr>
+    <td>2021-03-21</td>
+    <td>Necesidad</td>
+    <td>Cuadernos</td>
+  </tr>
+  <tr>
+    <td>2021-03-21</td>
+    <td>Donacion</td>
+    <td>Utiles</td>
+  </tr>
+  <tr>
+    <td>2021-03-21</td>
+    <td>Necesidad</td>
+    <td>Cuadernos</td>
+  </tr>
+  <tr>
+    <td>2021-03-21</td>
+    <td>Donacion</td>
+    <td>Utiles</td>
+  </tr>
+  <tr>
+    <td>2021-03-21</td>
+    <td>Necesidad</td>
+    <td>Cuadernos</td>
+  </tr>
+  <tr>
+    <td>2021-03-21</td>
+    <td>Donacion</td>
+    <td>Utiles</td>
+  </tr>
+  <tr>
+    <td>2021-03-21</td>
+    <td>Necesidad</td>
+    <td>Cuadernos para nivel escolar primario</td>
+  </tr>
+  <tr>
+    <td>2021-03-21</td>
+    <td>Donacion</td>
+    <td>Utiles</td>
+  </tr>
+</table>
+
+</div>
+
+<div class="foot">
+<div mat-dialog-actions style="justify-content:center">
+    <button mat-raised-button color="primary" [mat-dialog-close]="true">{{data?.botonConfirm}}</button>
+</div>
+</div>
+

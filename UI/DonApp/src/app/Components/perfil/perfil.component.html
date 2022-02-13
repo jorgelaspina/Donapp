@@ -1,1 +1,61 @@
-<p>perfil works!</p>
+<div>
+    <app-header></app-header>
+  </div>
+  <div class="d-flex justify-content-center windows-name bg-gris text-black">
+    Datos de Usuario
+  </div>  
+  
+  <div class="with-margin-top  with-margin-lateral">
+    <div class="ml-3 bd-highlight" style="padding-bottom: 5px;text-align: center;"> 
+        <img [src]=fotoFullName height="80px;" width="80px;"  style="border-radius:50%; object-fit: cover;">
+        <label for="files" class="btn" style="font-size: 0.8rem; color:royalblue;"><u>Cambiar imágen</u></label>
+        <input id="files" style="display:none;" type="file" (change)="subirFotoPerfil($event)"class="mt-2"/>
+      </div>
+    <form>
+          <div class="form-group" style="padding-bottom: 5px;font-size: 0.8rem"> 
+            <label for="titulo">Nombre</label>
+            <input type="text" text="Selecciona archivo" class="form-control" disabled name="nombre" style="font-size: 0.8rem;"
+             id="1" aria-describedby="emailHelp" [(ngModel)]="usuario.nombre">
+          </div>
+          <div class="form-group" style="padding-bottom: 5px;font-size: 0.8rem"> 
+            <label for="titulo">Apellido</label>
+            <input type="text" class="form-control" name="apellido" disabled style="font-size: 0.8rem;"
+             id="2" aria-describedby="emailHelp" [(ngModel)]="usuario.apellido">
+          </div>
+          <div class="form-group" style="padding-bottom: 5px; font-size: 0.8rem;"> 
+            <label for="titulo">DNI</label>
+            <input type="text" class="form-control" name="dni" disabled style="font-size: 0.8rem;"
+             id="3" aria-describedby="emailHelp" [(ngModel)]="usuario.dni">
+          </div>
+          <div class="form-group" style="padding-bottom: 5px;font-size: 0.8rem"> 
+            <label for="titulo">Fecha de Nac.</label>
+            <input type="date" class="form-control" name="fechaNac" style="font-size: 0.8rem;"
+             id="4" aria-describedby="emailHelp" [(ngModel)]="usuario.fechaNac">
+          </div>
+          <div class="form-group" style="padding-bottom: 5px;font-size: 0.8rem"> 
+            <label for="titulo">Telefono</label>
+            <input type="text" class="form-control" name="telefono" style="font-size: 0.8rem;"
+             id="5" aria-describedby="emailHelp" [(ngModel)]="usuario.telefono">
+          </div>
+          <div class="form-group" style="padding-bottom: 5px;font-size: 0.8rem"> 
+            <label for="titulo">Email</label>
+            <input type="text" class="form-control" name="email" style="font-size: 0.8rem;"
+             id="6" aria-describedby="emailHelp" [(ngModel)]="usuario.email">
+          </div>
+          <div class="form-group" style="padding-bottom: 5px;font-size: 0.8rem"> 
+            <label for="titulo">Nueva Contraseña</label>
+            <input type="text" class="form-control" name="contraseña" style="font-size: 0.8rem;"
+             id="7" aria-describedby="emailHelp" [(ngModel)]="nuevaContrasenia" placeholder="Ingrese nueva contraseña">
+             <p style="font-size: 0.6rem;">*Entre 8 y 16 caracteres y contener al menos un número, una minúscula y una mayúscula.</p>
+          </div>
+        </form>
+            
+  </div>
+  
+  <footer class="main-footer">
+      <div class="d-flex justify-content-center bg-azul text-white">
+        <button type="button" (click)="editarUsuario()" class="btnradius">Guardar Cambios</button>
+      </div>
+  </footer>
+  
+  

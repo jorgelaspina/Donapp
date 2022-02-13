@@ -8,6 +8,7 @@ import { Observable} from 'rxjs';
 export class UsuarioService {
 
   readonly APIUrl ="http://localhost:55481/api"
+  readonly carpetaFotos ="http://localhost:55481/fotosPerfil"
   private userId:number;
 
   constructor(private http:HttpClient) {this.userId=1;}
@@ -20,6 +21,18 @@ export class UsuarioService {
     this.userId = id;
     console.log("userId: "+this.getUserId())
   }
-  
+
+  getDatosUsuario(){
+    return this.http.get<any>(this.APIUrl+'/usuario/'+this.userId)
+  }
+  subirFoto(val:any){
+    console.log(val);
+    return this.http.post<any>(this.APIUrl+'/usuario/guardarImagen',val)   
+  }  
   getUserId(){return this.userId;}  
+
+  editarUsuario(val:any){
+    return this.http.post<any>(this.APIUrl+'/usuario/editarUsuario',val)
+  }
+
 }

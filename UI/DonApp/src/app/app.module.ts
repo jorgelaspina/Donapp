@@ -35,6 +35,7 @@ import { AcceptComponent } from './Components/dialogs/accept/accept.component';
 import { MisSolicitudesComponent } from './Components/mis-solicitudes/mis-solicitudes.component';
 import { DatePipe } from '@angular/common';
 import { OfrecimientosRecibidosComponent } from './Components/ofrecimientos-recibidos/ofrecimientos-recibidos.component';
+import { HistorialComponent } from './Components/dialogs/historial/historial.component';
 
 
 
@@ -48,6 +49,7 @@ import { OfrecimientosRecibidosComponent } from './Components/ofrecimientos-reci
     LoginComponent,
     HeaderComponent,
     ConfirmComponent,
+    HistorialComponent,
     SolicitudesComponent,
     MisNecesidadesComponent,
     MisDonacionesComponent,
