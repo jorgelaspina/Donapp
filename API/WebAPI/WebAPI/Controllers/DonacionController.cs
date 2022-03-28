@@ -18,7 +18,7 @@ namespace WebAPI.Controllers
         {
             string query = @"
                            SELECT D.[ID],CONVERT(VARCHAR(10), [fechaCreacion],120) as 'fechaCreacion',[titulo],[descripcion],[latitud],[longitud]
-                                    ,[direccion],[ID_Categoria],[ID_Estado],D.[ID_Usuario],P.Nombre, P.Apellido,
+                                    ,[direccion],[ID_Categoria],[ID_Estado],D.[ID_Usuario],P.Nombre, P.Apellido, D.estrellasSegunDonante,
                                     dbo.dn_fn_CalculaDistancia('" + p.latitud + @"','" + p.longitud + @"', [latitud],[longitud],'K') as distancia,
                                     (Select AVG(CAST(D2.resultadoDonacion as FLOAT)) from Donacion D2 where D2.ID_Usuario = D.ID_Usuario and D2.resultadoDonacion <> 0 group by D2.ID_Usuario) as 'PuntajeDonador'
                             FROM [WEBAPPDB].[dbo].[Donacion] D
@@ -169,7 +169,7 @@ namespace WebAPI.Controllers
             string query = @"
                             
                            SELECT D.[ID],CONVERT(VARCHAR(10), [fechaCreacion],120) as 'fechaCreacion',[titulo],[descripcion],[latitud],[longitud]
-                                    ,[direccion],[ID_Categoria],[ID_Estado],D.[ID_Usuario],P.Nombre, P.Apellido,
+                                    ,[direccion],[ID_Categoria],[ID_Estado],D.[ID_Usuario],P.Nombre, P.Apellido,D.estrellasSegunDonante,
                                     dbo.dn_fn_CalculaDistancia('" + r.latitud + @"','" + r.longitud + @"', [latitud],[longitud],'K') as distancia,
                                     (Select AVG(CAST(D2.resultadoDonacion as FLOAT)) from Donacion D2 where D2.ID_Usuario = D.ID_Usuario and D2.resultadoDonacion <> 0 group by D2.ID_Usuario) as 'PuntajeDonador'
                                     ,COUNT(1) as 'MatchLevel'
@@ -182,7 +182,7 @@ namespace WebAPI.Controllers
                             WHERE [ID_Estado] = 2 
                             AND NOT EXISTS (SELECT * FROM [WEBAPPDB].[dbo].[Solicitud] S WHERE S.[ID_Donacion] = D.[ID] AND S.[ID_UsuarioEmisor] = " + r.usuarioID + @")
                             AND D.[ID_Usuario] <> " + r.usuarioID + @"
-                             GROUP BY D.[ID], D.[fechaCreacion], D.[titulo], D.[descripcion], D.[latitud], D.[longitud], D.[direccion], D.[ID_Categoria], D.[ID_Estado], D.[ID_Usuario], P.Nombre, P.Apellido"
+                             GROUP BY D.[ID], D.[fechaCreacion], D.[titulo], D.[descripcion], D.[latitud], D.[longitud], D.[direccion], D.[ID_Categoria], D.[ID_Estado], D.[ID_Usuario], P.Nombre, P.Apellido, D.estrellasSegunDonante"
                             ;
             DataTable table = new DataTable();
             using (var con = new SqlConnection(ConfigurationManager.

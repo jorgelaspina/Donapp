@@ -12,11 +12,8 @@
     
     tr:nth-child(even) {background-color: #f2f2f2;}
 </style>
-<div class="header">
-    <h2 mat-dialog-title>{{data?.titulo}}</h2>
-</div>
-
-<div mat-dialog-content>
+<div class="header" style="display:inline">
+    <h2 mat-dialog-title style="margin-bottom: 0px;">{{data?.titulo}}</h2>
     <h3>
         <div *ngIf="data.puntajeDonador < -0.599"><img src="./assets/rate1.png" height="20px;" width="20px;"/> {{data?.subtitulo}}</div>
         <div *ngIf="data.puntajeDonador > -0.599 && data.puntajeDonador < -0.199"><img src="./assets/rate2.png" height="20px;" width="20px;"/> {{data?.subtitulo}}</div>
@@ -24,56 +21,24 @@
         <div *ngIf="data.puntajeDonador > 0.199 && data.puntajeDonador < 0.599"><img src="./assets/rate4.png" height="20px;" width="20px;"/> {{data?.subtitulo}}</div>
         <div *ngIf="data.puntajeDonador > 0.599"><img src="./assets/rate5.png" height="20px;" width="20px;"/> {{data?.subtitulo}}</div>
     </h3>
+</div>
+
+<div mat-dialog-content>
+
     
 
 <table style="width:100%">
   <tr>
-    <th>Fecha</th>
+    <th  style="width:25%">Fecha</th>
     <th>Tipo</th>
     <th>Articulo</th>
   </tr>
-  <tr>
-    <td>2021-03-21</td>
-    <td>Necesidad</td>
-    <td>Cuadernos</td>
-  </tr>
-  <tr>
-    <td>2021-03-21</td>
-    <td>Donacion</td>
-    <td>Utiles</td>
-  </tr>
-  <tr>
-    <td>2021-03-21</td>
-    <td>Necesidad</td>
-    <td>Cuadernos</td>
-  </tr>
-  <tr>
-    <td>2021-03-21</td>
-    <td>Donacion</td>
-    <td>Utiles</td>
-  </tr>
-  <tr>
-    <td>2021-03-21</td>
-    <td>Necesidad</td>
-    <td>Cuadernos</td>
-  </tr>
-  <tr>
-    <td>2021-03-21</td>
-    <td>Donacion</td>
-    <td>Utiles</td>
-  </tr>
-  <tr>
-    <td>2021-03-21</td>
-    <td>Necesidad</td>
-    <td>Cuadernos para nivel escolar primario</td>
-  </tr>
-  <tr>
-    <td>2021-03-21</td>
-    <td>Donacion</td>
-    <td>Utiles</td>
+  <tr *ngFor="let dataItem of data?.registros">
+    <td>{{dataItem.Fecha | date:'dd-MMM-yy'}}</td>
+    <td>{{dataItem.Tipo}}</td>
+    <td>{{dataItem.titulo}}</td>
   </tr>
 </table>
-
 </div>
 
 <div class="foot">

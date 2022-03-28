@@ -20,7 +20,8 @@ namespace WebAPI.Controllers
             string query = @"
                            SELECT N.[ID],CONVERT(VARCHAR(10), [fechaCreacion],120) as 'fechaCreacion',[titulo],[descripcion],[latitud],[longitud]
                                     ,[direccion],[ID_Categoria],[ID_Estado],N.[ID_Usuario],P.[nombre],P.[apellido],
-                                    dbo.dn_fn_CalculaDistancia('" + p.latitud + @"','" + p.longitud + @"', [latitud],[longitud],'K') as distancia  
+                                    dbo.dn_fn_CalculaDistancia('" + p.latitud + @"','" + p.longitud + @"', [latitud],[longitud],'K') as distancia,
+                                    (Select AVG(CAST(D2.resultadoDonacion as FLOAT)) from Donacion D2 where D2.ID_Usuario = N.ID_Usuario and D2.resultadoDonacion <> 0 group by D2.ID_Usuario) as 'PuntajeDonador'
                                 FROM [WEBAPPDB].[dbo].[Necesidad] N
                                 INNER JOIN Usuario U
                                 ON U.Id = N.ID_Usuario

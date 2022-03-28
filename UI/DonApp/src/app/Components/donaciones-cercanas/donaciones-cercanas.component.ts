@@ -25,9 +25,11 @@ export class DonacionesCercanasComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   donacionesCercanas:any=[];
+  donacionesCercanasFiltradas:any=[];
   latitud:any;
   longitud:any;
   titulo:any;
+  tituloBuscado:string='';
 
   ngOnInit(): void {
       this.servicio.getPosition().then(pos => {
@@ -50,7 +52,7 @@ export class DonacionesCercanasComponent implements OnInit {
         usuarioID:this.usuarioService.getUserId()};
       this.donacionesService.getDonacionesCercanas(val).subscribe(data=>{
         this.donacionesCercanas=data;
-        console.log(data);
+        this.donacionesCercanasFiltradas=this.donacionesCercanas;        
       });
     }
     else
@@ -88,5 +90,16 @@ export class DonacionesCercanasComponent implements OnInit {
         });             
       };
     });    
+  }
+  filtrarPorTitulo(event:any)
+  {
+    console.log("event logged: "+event.target.value)
+    const tituloBuscado = event.target.value
+    if(tituloBuscado == "")
+      this.donacionesCercanasFiltradas = this.donacionesCercanas
+    else
+      this.donacionesCercanasFiltradas = this.donacionesCercanas.filter(
+        (donacion:any) => donacion["titulo"].toUpperCase().includes(tituloBuscado.toUpperCase())
+      )    
   }
    }

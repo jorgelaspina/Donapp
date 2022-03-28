@@ -34,5 +34,7 @@ export class UsuarioService {
   editarUsuario(val:any){
     return this.http.post<any>(this.APIUrl+'/usuario/editarUsuario',val)
   }
-
+  getHistorialUsuario(id:number){
+    return this.http.get<any>(this.APIUrl+'/usuario/historial/'+id)
+  }
 }

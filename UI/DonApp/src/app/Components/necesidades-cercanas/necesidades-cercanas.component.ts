@@ -31,6 +31,7 @@ export class NecesidadesCercanasComponent implements OnInit {
     ) { }
 
   necesidadesCercanas:any=[];
+  historialUsuario:any=[];
   latitud:any;
   longitud:any;
   confirmaSol:any;
@@ -130,17 +131,19 @@ export class NecesidadesCercanasComponent implements OnInit {
             this.longitud = pos.lng;
         })
     }
-  mostrarHistorialUsuario(id:any){
-    let dialogRef = this.dialogService.openHistorialDialog(
-      {titulo:"Historial del Usuario",
-      subtitulo: "Usuario Nombre",
-      mensaje: "En esta ventana se muestran las ultimas necesidades y donaciones del usuario solicitante. ID: "+ id,
-      puntajeDonador: 0.688,
-      botonConfirm: 'Cerrar',
-      botonCancel: 'NA', 
-      registros: []}
-      );
-  }
-  
-  }
+  mostrarHistorialUsuario(id:any, nombre:string, apellido:string, puntaje:number){
+    this.usuarioService.getHistorialUsuario(id).subscribe(data=>{
+      this.historialUsuario=data;
+      let dialogRef = this.dialogService.openHistorialDialog(
+        {titulo: "Historial del usuario",
+        subtitulo: nombre +" "+apellido,
+        mensaje: "En esta ventana se muestran las ultimas necesidades y donaciones del usuario solicitante. ID: "+ id,
+        puntajeDonador: puntaje,
+        botonConfirm: 'Cerrar',
+        botonCancel: 'NA', 
+        registros: this.historialUsuario}
+        );
+      })
+    } 
+  } 
 

@@ -60,7 +60,7 @@ export class CrearDonacionComponent implements OnInit {
             }
             else{
               this.servicio.addDonacion(val).subscribe(res=>{
-                let dialogRef = this.dialogService.openConfirmDialog(
+                let dialogRef = this.dialogService.openAcceptDialog(
                   {titulo:"Info", mensaje: "Donación registrada con éxito", botonConfirm: 'Aceptar', botonCancel: 'NA'}
                   );
                 return;

@@ -98,5 +98,28 @@ namespace WebAPI.Controllers
                 return "error loading profile picture: " +e.Message + ". FileName= " + filename;
             }
         }
+        [Route("api/usuario/historial/{id}")]
+        public HttpResponseMessage GetHistorialUsuario(int id)
+        {
+            try
+            {
+                var data = new DataTable();
+                string procedureName = "[dbo].[getHistorialUsuario]";
+                using (var con = new SqlConnection(ConfigurationManager.ConnectionStrings["WEBAPPDB"].ConnectionString))
+                using (SqlCommand cmd2 = new SqlCommand(procedureName, con))
+                {
+                    cmd2.CommandType = CommandType.StoredProcedure;
+                    cmd2.Parameters.Add(new SqlParameter("@ID_Usuario", id));
+                    con.Open();
+                    var dataReader = cmd2.ExecuteReader();
+                    data.Load(dataReader);
+                    return Request.CreateResponse(HttpStatusCode.OK, data);
+                }
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound, e.Message);
+            }
+        }
     }
 }
