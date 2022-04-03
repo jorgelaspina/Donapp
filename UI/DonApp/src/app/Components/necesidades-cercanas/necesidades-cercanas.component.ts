@@ -31,12 +31,14 @@ export class NecesidadesCercanasComponent implements OnInit {
     ) { }
 
   necesidadesCercanas:any=[];
+  necesidadesCercanasFiltradas:any=[];
   historialUsuario:any=[];
   latitud:any;
   longitud:any;
   confirmaSol:any;
   direccion:any;
   titulo:any;
+  tituloBuscado:string='';
   
   async ngOnInit(): Promise<void> {
     await this.getLocation();      
@@ -60,7 +62,7 @@ export class NecesidadesCercanasComponent implements OnInit {
           usuarioID:this.usuarioService.getUserId()};
         this.NecesidadesService.getNecesidadesCercanas(val).subscribe(data=>{
           this.necesidadesCercanas=data;
-          console.log(data);
+          this.necesidadesCercanasFiltradas=this.necesidadesCercanas;
         });
       }
       else
@@ -72,6 +74,7 @@ export class NecesidadesCercanasComponent implements OnInit {
           titulo:this.titulo};
         this.NecesidadesService.getNecesidadesRelacionadas(val).subscribe(data=>{
           this.necesidadesCercanas=data;
+          this.necesidadesCercanasFiltradas=this.necesidadesCercanas;
           console.log(val)
           console.log(data);
         });
@@ -144,6 +147,17 @@ export class NecesidadesCercanasComponent implements OnInit {
         registros: this.historialUsuario}
         );
       })
+    }
+    filtrarPorTitulo(event:any)
+    {
+      console.log("event logged: "+event.target.value)
+      const tituloBuscado = event.target.value
+      if(tituloBuscado == "")
+        this.necesidadesCercanasFiltradas = this.necesidadesCercanas
+      else
+        this.necesidadesCercanasFiltradas = this.necesidadesCercanas.filter(
+          (necesidad:any) => necesidad["titulo"].toUpperCase().includes(tituloBuscado.toUpperCase())
+        )    
     } 
   } 
 

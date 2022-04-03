@@ -30,6 +30,8 @@ export class DonacionesCercanasComponent implements OnInit {
   longitud:any;
   titulo:any;
   tituloBuscado:string='';
+  fotoPath:string='http://localhost:55481/fotosDonacion/';
+;
 
   ngOnInit(): void {
       this.servicio.getPosition().then(pos => {
@@ -38,7 +40,6 @@ export class DonacionesCercanasComponent implements OnInit {
       this.titulo = this.route.snapshot.params['titulo'];
       console.log("ngOnInit  titulo ---> " + this.titulo);
       this.refreshDonaciones();
-
     })
   } 
 
@@ -64,8 +65,7 @@ export class DonacionesCercanasComponent implements OnInit {
         titulo:this.titulo};
       this.donacionesService.getDonacionesRelacionadas(val).subscribe(data=>{
         this.donacionesCercanas=data;
-        console.log(val)
-        console.log(data);
+        this.donacionesCercanasFiltradas=this.donacionesCercanas;
       });
     }
   }
@@ -102,4 +102,11 @@ export class DonacionesCercanasComponent implements OnInit {
         (donacion:any) => donacion["titulo"].toUpperCase().includes(tituloBuscado.toUpperCase())
       )    
   }
-   }
+  mostrarFotoArticulo(dataItem:any){    
+    var foto = this.fotoPath+dataItem.fotoFullName;
+    console.log("FotoPath: "+ foto)
+    let dialogRef = this.dialogService.openFotoDialog(
+        {fotoPath: foto}
+        );
+      }
+}

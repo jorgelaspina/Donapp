@@ -41,6 +41,11 @@
           <img src="./assets/Posi.png" height="22px;" width="15;"/>
           <label>Ubicación: </label><label>{{this.address}}</label>       
           </div>
+          <div class="ml-3 bd-highlight" style="padding-bottom: 5px;text-align: center;"> 
+            <img [src]=fotoFullName height="150px;" width="150px;"  style="border-radius:5%; object-fit: cover;">
+            <label for="files" class="btn" style="font-size: 0.8rem; color:royalblue;"><u>Cambiar imágen</u></label>
+            <input id="files" style="display:none;" type="file" (change)="subirFotoArticulo($event)"class="mt-2"/>
+          </div>
       </form>
 </div>
 

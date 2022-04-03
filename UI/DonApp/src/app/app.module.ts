@@ -19,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ConfirmComponent } from './Components/dialogs/confirm/confirm.component';
 import { SolicitudService } from './services/solicitud.service';
+import { DonacionesService } from './services/donaciones.service';
 import { SolicitudesComponent } from './Components/solicitudes/solicitudes.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MisNecesidadesComponent } from './Components/mis-necesidades/mis-necesidades.component';
@@ -78,7 +79,7 @@ import { HistorialComponent } from './Components/dialogs/historial/historial.com
     MatMenuModule,
       MatCarouselModule.forRoot()
   ],
-  providers: [ServicioSharedService,SolicitudService,PosicionService,DatePipe,],
+  providers: [ServicioSharedService,SolicitudService,PosicionService,DatePipe,DonacionesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

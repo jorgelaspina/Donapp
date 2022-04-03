@@ -12,7 +12,7 @@
     <mat-grid-list cols="5" class="grid-bg" rowHeight="25px"  *ngFor="let dataItem of donacionesCercanasFiltradas">
         <mat-grid-tile class="white-tile" colspan="5" browspan="1">
         </mat-grid-tile>
-        <mat-grid-tile class="color-tile" colspan="4" browspan="1">
+        <mat-grid-tile class="color-tile" colspan="4" browspan="1" (click)="mostrarFotoArticulo(dataItem)">
             <div class="text-inside-grid">
                 <div *ngIf="dataItem.estrellasSegunDonante===1">{{dataItem.titulo}} <a style="color: gold;">★</a></div>
                 <div *ngIf="dataItem.estrellasSegunDonante===2">{{dataItem.titulo}} <a style="color: gold;">★★</a></div>

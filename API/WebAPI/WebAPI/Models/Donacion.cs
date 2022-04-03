@@ -19,5 +19,6 @@ namespace WebAPI.Models
 		public int ID_Usuario { get; set; }
 		public int estrellasSegunDonante { get; set; }
 		public int resultadoDonacion { get; set; }
-    }
+		public string fotoFullName { get; set; }
+	}
 }

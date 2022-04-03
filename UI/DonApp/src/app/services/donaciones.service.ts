@@ -37,6 +37,10 @@ export class DonacionesService {
   }
   getDonacionesRelacionadas(val:any){
     return this.http.post<any>(this.APIUrl+'/donacion/donacionesRelacionadas',val)
-  }  
+  }
+  subirFoto(val:any){
+    console.log(val);
+    return this.http.post<any>(this.APIUrl+'/donacion/guardarImagen',val)   
+  }    
   
 }

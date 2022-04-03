@@ -20,7 +20,7 @@ namespace WebAPI.Controllers
                            SELECT D.[ID],CONVERT(VARCHAR(10), [fechaCreacion],120) as 'fechaCreacion',[titulo],[descripcion],[latitud],[longitud]
                                     ,[direccion],[ID_Categoria],[ID_Estado],D.[ID_Usuario],P.Nombre, P.Apellido, D.estrellasSegunDonante,
                                     dbo.dn_fn_CalculaDistancia('" + p.latitud + @"','" + p.longitud + @"', [latitud],[longitud],'K') as distancia,
-                                    (Select AVG(CAST(D2.resultadoDonacion as FLOAT)) from Donacion D2 where D2.ID_Usuario = D.ID_Usuario and D2.resultadoDonacion <> 0 group by D2.ID_Usuario) as 'PuntajeDonador'
+                                    (Select AVG(CAST(D2.resultadoDonacion as FLOAT)) from Donacion D2 where D2.ID_Usuario = D.ID_Usuario and D2.resultadoDonacion <> 0 group by D2.ID_Usuario) as 'PuntajeDonador', [fotoFullName]
                             FROM [WEBAPPDB].[dbo].[Donacion] D
                             INNER JOIN Usuario U
                             ON U.Id = D.ID_Usuario
@@ -88,7 +88,7 @@ namespace WebAPI.Controllers
                 d.ID_Categoria + @"," +
                 d.ID_Estado + @"," +
                 d.ID_Usuario + @"," +
-                d.estrellasSegunDonante + @", 0";
+                d.estrellasSegunDonante + @", 0,'" + d.fotoFullName + "'";
 
             try
             {
@@ -194,6 +194,25 @@ namespace WebAPI.Controllers
                 da.Fill(table);
             }
             return Request.CreateResponse(HttpStatusCode.OK, table);
+        }
+        [Route("api/donacion/guardarImagen")]
+        public string guardarImagen()
+        {
+            string filename = "";
+            try
+            {
+                var httpRequest = System.Web.HttpContext.Current.Request;
+                var postedFile = httpRequest.Files[0];
+                filename = postedFile.FileName;
+                var physicalPath = System.Web.HttpContext.Current.Server.MapPath("~/fotosDonacion/" + filename);
+
+                postedFile.SaveAs(physicalPath);
+                return filename;
+            }
+            catch (Exception e)
+            {
+                return "error loading profile picture: " + e.Message + ". FileName= " + filename;
+            }
         }
 
     }
