@@ -73,6 +73,7 @@ export class CrearDonacionComponent implements OnInit {
                 let dialogRef = this.dialogService.openAcceptDialog(
                   {titulo:"Info", mensaje: "Donación registrada con éxito", botonConfirm: 'Aceptar', botonCancel: 'NA'}
                   );
+                this.router.navigateByUrl("/misdonaciones");
                 return;
               })              
             }
@@ -84,6 +85,7 @@ export class CrearDonacionComponent implements OnInit {
             let dialogRef = this.dialogService.openAcceptDialog(
               {titulo:"Info", mensaje: "Donación registrada con éxito", botonConfirm: 'Aceptar', botonCancel: 'NA'}
               );
+              this.router.navigateByUrl("/misdonaciones");
           })    
         }
       })

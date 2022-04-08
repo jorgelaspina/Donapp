@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 export class SolicitudesRecibidasComponent implements OnInit {
 
   solicitudesrecibidas:any=[];
+  historialUsuario:any=[];
 
   constructor(
     private solicitudService: SolicitudService,
@@ -24,6 +25,7 @@ export class SolicitudesRecibidasComponent implements OnInit {
     private dialogService:DialogService,
     private servicioDonacion:DonacionesService,
     private servicioNecesidad:NecesidadesService,
+    private usuarioService: UsuarioService,
     private router: Router
     ) { }
 
@@ -36,6 +38,7 @@ export class SolicitudesRecibidasComponent implements OnInit {
     this.solicitudService.getSolicitudesRecibidas(user).subscribe(data=>{
       this.solicitudesrecibidas=data.filter((solicitud:any) => solicitud["tipoSolicitud"] === 'solicitudDonacion');
     });
+    console.log(this.solicitudesrecibidas)
   }
   ngOnInit(): void {
     this.refreshSolicitudesRecibidas();
@@ -84,7 +87,21 @@ export class SolicitudesRecibidasComponent implements OnInit {
       let dialogRef = this.dialogService.openAcceptDialog(
         {titulo:res2, mensaje: "Ahora puedes contactarte con el solicitante", botonConfirm: 'Entendido', botonCancel: 'NA'}
         );
-        this.router.navigateByUrl("/conversaciones/"+Sol.ID); 
+        this.router.navigateByUrl("/conversaciones/"+Sol); 
     });    
   }
+  mostrarHistorialUsuario(id:any, nombre:string, apellido:string, puntaje:number){
+    this.usuarioService.getHistorialUsuario(id).subscribe(data=>{
+      this.historialUsuario=data;
+      let dialogRef = this.dialogService.openHistorialDialog(
+        {titulo: "Historial del usuario",
+        subtitulo: nombre +" "+apellido,
+        mensaje: "En esta ventana se muestran las ultimas necesidades y donaciones del usuario solicitante. ID: "+ id,
+        puntajeDonador: puntaje,
+        botonConfirm: 'Cerrar',
+        botonCancel: 'NA', 
+        registros: this.historialUsuario}
+        );
+      })
+    }
 }

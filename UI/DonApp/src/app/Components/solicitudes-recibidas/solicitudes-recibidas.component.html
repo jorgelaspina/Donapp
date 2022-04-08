@@ -35,8 +35,8 @@
     <div class="row">
         <div class="col-xs"><h3><img lass="mr5" src="./assets/Posi.png" height="20px;" width="15;"/>{{slide.direccion}}</h3></div>
     </div>        
-    <div class="row">
-        <div class="col-xs"><h4>Ver historial del Usuario</h4></div>
+    <div class="row" (click)="mostrarHistorialUsuario(slide.ID_UsuarioEmisor, slide.nombre, slide.apellido, slide.puntajedonador)">
+        <div class="col-xs" style="color: #0000EE;"><h4>Ver historial del Usuario</h4></div>
     </div>
     <div class="container fb">
         <button style="margin-right: 5px; background-color: rgb(41, 129, 0); color: white;" mat-fab [mat-dialog-close]="false" (click)="aceptarSolicitud(slide)">Aceptar</button>

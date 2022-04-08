@@ -5,6 +5,7 @@ import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { DonacionesService } from 'src/app/services/donaciones.service';
 import { ActivatedRoute } from '@angular/router';
+import { DeclarationListEmitMode } from '@angular/compiler';
 
 
 
@@ -106,7 +107,11 @@ export class DonacionesCercanasComponent implements OnInit {
     var foto = this.fotoPath+dataItem.fotoFullName;
     console.log("FotoPath: "+ foto)
     let dialogRef = this.dialogService.openFotoDialog(
-        {fotoPath: foto}
+        {fotoPath: foto,
+          titulo:dataItem.titulo,
+          estrellas:dataItem.estrellasSegunDonante,
+          descripcion:dataItem.descripcion
+        }
         );
       }
 }

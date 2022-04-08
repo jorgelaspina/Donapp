@@ -60,6 +60,10 @@ namespace WebAPI.Controllers
             string query = @"
                            SELECT S.ID
                           ,U.nombreUsuario
+                          ,P.apellido
+                          ,P.nombre
+                          ,P.puntajedonador
+                          ,S.ID_UsuarioEmisor
                           ,D.titulo
 	                      ,CAST(CAST(S.fechaCreacion AS DATE) AS VARCHAR) as 'fechaCreacion'
 	                      ,D.direccion
@@ -72,12 +76,18 @@ namespace WebAPI.Controllers
                         ON S.ID_Donacion = D.ID
                         INNER JOIN [dbo].[Usuario] U 
                         ON S.Id_UsuarioEmisor = U.ID
+                        INNER JOIN PuntajeUsuario P
+                        ON P.Id_Usuario = U.Id
                         INNER JOIN [dbo].[Estado] E
                         ON E.ID = S.ID_Estado
                         WHERE S.ID_Estado = 8 AND D.[ID_Usuario] = " + U.ID +
                         @" UNION 
                         SELECT S.ID
                           ,U.nombreUsuario
+                          ,P.apellido
+                          ,P.nombre
+                          ,P.puntajedonador
+                          ,S.ID_UsuarioEmisor
                           ,N.titulo
 	                      ,CAST(CAST(S.fechaCreacion AS DATE) AS VARCHAR) as 'fechaCreacion'
 	                      ,N.direccion
@@ -90,6 +100,8 @@ namespace WebAPI.Controllers
                         ON N.ID = S.ID_Necesidad
                         INNER JOIN[dbo].[Usuario] U
                        ON S.Id_UsuarioEmisor = U.ID
+                        INNER JOIN PuntajeUsuario P
+                        ON P.Id_Usuario = U.Id
                         INNER JOIN [dbo].[Estado] E
                        ON E.ID = S.ID_Estado
                         WHERE S.ID_Estado = 8 AND N.[ID_Usuario] = " + U.ID;
