@@ -5,6 +5,7 @@ import { SolicitudService } from 'src/app/services/solicitud.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { DonacionesService } from 'src/app/services/donaciones.service';
 import { ActivatedRoute } from '@angular/router';
+import { NotificacionService } from 'src/app/services/notificacion.service';
 import { DeclarationListEmitMode } from '@angular/compiler';
 
 
@@ -23,6 +24,7 @@ export class DonacionesCercanasComponent implements OnInit {
     private usuarioService: UsuarioService,
     private servicio: ServicioSharedService,
     private donacionesService: DonacionesService,
+    private NotificacionesService: NotificacionService,
     private route: ActivatedRoute) { }
 
   donacionesCercanas:any=[];
@@ -87,6 +89,7 @@ export class DonacionesCercanasComponent implements OnInit {
           let dialogRef = this.dialogService.openAcceptDialog(
             {titulo:'Confirmación', mensaje: res2.toString(), botonConfirm: 'Aceptar', botonCancel: 'NA'}
             );
+            this.generarNotificacion(dataItem.ID);
             this.refreshDonaciones();
         });             
       };
@@ -113,5 +116,22 @@ export class DonacionesCercanasComponent implements OnInit {
           descripcion:dataItem.descripcion
         }
         );
+      }
+      generarNotificacion(Itemid:number)
+      {
+        const notificacion = {
+          titulo:"Solicitud de Donación",
+          mensaje:"te solicita",
+          leido:0,
+          ID_Usuario:1,
+          ID_Emisor:this.usuarioService.getUserId(),
+          ID_Solicitud: -1,
+          ID_Donacion: Itemid,
+          ID_Necesidad: -1
+  
+        }
+        this.NotificacionesService.nuevaNotificaciones(notificacion).subscribe(res => {
+          console.log(notificacion);
+        });
       }
 }

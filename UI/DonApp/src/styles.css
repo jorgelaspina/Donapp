@@ -40,8 +40,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .color-tile {
 	background: rgb(110, 217, 253);
   }
+  .color-tile-right {
+	background: rgb(110, 217, 253);
+	justify-content: right;
+  }
 .white-tile {
 	background: rgb(255, 255, 255);
+  }
+.gray-tile {	background: rgb(189, 185, 185);
   }
 .text-inside-grid-small{
 	position: absolute;

@@ -7,7 +7,9 @@ import { UsuarioService } from '../../services/usuario.service';
 import { PosicionService } from '../../services/posicion.service';
 import { DonacionesService } from '../../services/donaciones.service';
 import { NecesidadesService } from '../../services/necesidades.service';
+import { NotificacionService } from '../../services/notificacion.service';
 import { ActivatedRoute } from '@angular/router';
+import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 
@@ -26,6 +28,7 @@ export class NecesidadesCercanasComponent implements OnInit {
     private servicioPosicion:PosicionService,
     private DonacionesService: DonacionesService,
     private NecesidadesService: NecesidadesService,
+    private NotificacionesService: NotificacionService,
     private route: ActivatedRoute
 
     ) { }
@@ -114,8 +117,9 @@ export class NecesidadesCercanasComponent implements OnInit {
                 };
                 this.solicitudService.generarNuevaSolicitud(solicitud).subscribe(res3=>{
                   let dialogRef = this.dialogService.openAcceptDialog(
-                    {titulo:"Info", mensaje: "Se ha cargdo tu ofrecimiento de donación a esta Necesidad y se envió una solicitud al donatario.", botonConfirm: 'Aceptar', botonCancel: 'NA'}
+                    {titulo:"Info", mensaje: "Se ha cargado tu ofrecimiento de donación a esta Necesidad y se envió una solicitud al donatario.", botonConfirm: 'Aceptar', botonCancel: 'NA'}
                     );
+                  this.generarNotificacion(dataItem.ID);
                   this.refreshNecesidades();
                 });
               })
@@ -158,6 +162,23 @@ export class NecesidadesCercanasComponent implements OnInit {
         this.necesidadesCercanasFiltradas = this.necesidadesCercanas.filter(
           (necesidad:any) => necesidad["titulo"].toUpperCase().includes(tituloBuscado.toUpperCase())
         )    
+    }
+    generarNotificacion(Itemid:number)
+    {
+      const notificacion = {
+        titulo:"Ofrecimiento de Donación",
+        mensaje:"te ofrece",
+        leido:0,
+        ID_Usuario:1,
+        ID_Emisor:this.usuarioService.getUserId(),
+        ID_Solicitud: -1,
+        ID_Donacion: -1,
+        ID_Necesidad: Itemid
+
+      }
+      this.NotificacionesService.nuevaNotificaciones(notificacion).subscribe(res => {
+        console.log(notificacion);
+      });
     } 
   } 
 

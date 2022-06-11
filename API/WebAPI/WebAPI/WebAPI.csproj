@@ -163,6 +163,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
+    <Compile Include="Controllers\NotificacionController.cs" />
     <Compile Include="Controllers\MensajeController.cs" />
     <Compile Include="Controllers\ValoracionController.cs" />
     <Compile Include="Controllers\ConversacionController.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Notificacion.cs" />
     <Compile Include="Models\Estado.cs" />
     <Compile Include="Models\Mensaje.cs" />
     <Compile Include="Models\Relacion.cs" />

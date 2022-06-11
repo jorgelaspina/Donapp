@@ -10,8 +10,7 @@ export class UsuarioService {
   readonly APIUrl ="http://localhost:55481/api"
   readonly carpetaFotos ="http://localhost:55481/fotosPerfil"
   private userId:number;
-
-  constructor(private http:HttpClient) {this.userId=1;}
+  constructor(private http:HttpClient) {this.userId=1}
 
   LoginUsuario(val:any):Observable<any[]>{
     return this.http.post<any>(this.APIUrl+'/usuario',val)  

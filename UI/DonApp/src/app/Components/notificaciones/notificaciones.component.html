@@ -3,4 +3,26 @@
   </div>
   <div class="d-flex justify-content-center windows-name bg-gris text-black">
     Notificaciones
-  </div>  
+  </div>
+  <div class="with-margin-top">
+    <mat-grid-list cols="6" class="grid-bg" rowHeight="20px"  *ngFor="let dataItem of misNotificaciones">
+        <mat-grid-tile class="white-tile" colspan="6" browspan="1">
+        </mat-grid-tile>
+        <mat-grid-tile class="color-tile" colspan="4" browspan="1">
+            <div class="text-inside-grid">{{dataItem.titulo}}</div>
+        </mat-grid-tile>
+        <mat-grid-tile class="color-tile-right" colspan="2" rowspan="1">
+          <div class="text-inside-grid">
+            {{dataItem.fechaCreacion | date:'dd-MMM-yy'}}
+          </div>
+      </mat-grid-tile>
+        <mat-grid-tile class="color-tile" colspan="5" rowspan="1">
+          <div class="text-inside-grid">
+            {{dataItem.mensaje}}
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile class="color-tile" colspan="1" rowspan="1">
+            <div class="text-inside-grid-right">{{dataItem.leido}}</div>
+        </mat-grid-tile>  
+      </mat-grid-list>
+  </div>

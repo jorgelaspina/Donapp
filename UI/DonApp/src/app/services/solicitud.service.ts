@@ -10,6 +10,7 @@ export class SolicitudService {
 
   readonly APIUrl ="http://localhost:55481/api"
 
+
   constructor(private http:HttpClient) {}
 
   generarNuevaSolicitud(sol:any){
