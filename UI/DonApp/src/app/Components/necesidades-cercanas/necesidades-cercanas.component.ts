@@ -119,7 +119,7 @@ export class NecesidadesCercanasComponent implements OnInit {
                   let dialogRef = this.dialogService.openAcceptDialog(
                     {titulo:"Info", mensaje: "Se ha cargado tu ofrecimiento de donación a esta Necesidad y se envió una solicitud al donatario.", botonConfirm: 'Aceptar', botonCancel: 'NA'}
                     );
-                  this.generarNotificacion(dataItem.ID);
+                  this.generarNotificacion(dataItem.ID, dataItem.ID_Usuario);
                   this.refreshNecesidades();
                 });
               })
@@ -163,13 +163,13 @@ export class NecesidadesCercanasComponent implements OnInit {
           (necesidad:any) => necesidad["titulo"].toUpperCase().includes(tituloBuscado.toUpperCase())
         )    
     }
-    generarNotificacion(Itemid:number)
+    generarNotificacion(Itemid:number, ItemUsuario:number)
     {
       const notificacion = {
         titulo:"Ofrecimiento de Donación",
         mensaje:"te ofrece",
         leido:0,
-        ID_Usuario:1,
+        ID_Usuario:ItemUsuario,
         ID_Emisor:this.usuarioService.getUserId(),
         ID_Solicitud: -1,
         ID_Donacion: -1,

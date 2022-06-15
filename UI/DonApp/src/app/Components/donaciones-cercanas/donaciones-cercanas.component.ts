@@ -89,7 +89,7 @@ export class DonacionesCercanasComponent implements OnInit {
           let dialogRef = this.dialogService.openAcceptDialog(
             {titulo:'Confirmación', mensaje: res2.toString(), botonConfirm: 'Aceptar', botonCancel: 'NA'}
             );
-            this.generarNotificacion(dataItem.ID);
+            this.generarNotificacion(dataItem.ID, dataItem.ID_Usuario);
             this.refreshDonaciones();
         });             
       };
@@ -117,16 +117,16 @@ export class DonacionesCercanasComponent implements OnInit {
         }
         );
       }
-      generarNotificacion(Itemid:number)
+      generarNotificacion(itemId:Number, ItemUsuario:Number)
       {
         const notificacion = {
           titulo:"Solicitud de Donación",
           mensaje:"te solicita",
           leido:0,
-          ID_Usuario:1,
+          ID_Usuario:ItemUsuario,
           ID_Emisor:this.usuarioService.getUserId(),
           ID_Solicitud: -1,
-          ID_Donacion: Itemid,
+          ID_Donacion: itemId,
           ID_Necesidad: -1
   
         }

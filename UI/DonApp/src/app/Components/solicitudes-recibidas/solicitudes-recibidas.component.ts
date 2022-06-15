@@ -5,6 +5,7 @@ import { ConversacionService } from 'src/app/services/conversacion.service';
 import { DialogService } from 'src/app/services/dialog.service';
 import { DonacionesService } from 'src/app/services/donaciones.service';
 import { NecesidadesService } from 'src/app/services/necesidades.service';
+import { NotificacionService } from 'src/app/services/notificacion.service';
 import { Router } from '@angular/router';
 
 
@@ -26,6 +27,7 @@ export class SolicitudesRecibidasComponent implements OnInit {
     private servicioDonacion:DonacionesService,
     private servicioNecesidad:NecesidadesService,
     private usuarioService: UsuarioService,
+    private notificacionService: NotificacionService,
     private router: Router
     ) { }
 
@@ -57,6 +59,7 @@ export class SolicitudesRecibidasComponent implements OnInit {
       this.servicioDonacion.estadoDonacion(DonEst).subscribe(rslt=>{
         console.log("Estado de Donacion: Confirmado", DonEst);
       });
+        this.generarNotificacion(dataItem.ID_Donacion, "aceptó", dataItem.ID_UsuarioEmisor)
       console.log("Estado de Solicitud: Aceptado", SolEst);
       this.crearConversacion(dataItem.ID);
       console.log(dataItem.ID);
@@ -76,6 +79,7 @@ export class SolicitudesRecibidasComponent implements OnInit {
     this.servicioDonacion.estadoDonacion(DonEst).subscribe(rslt=>{
       console.log("Estado de Donacion: Disponible", DonEst);
     });
+    this.generarNotificacion(dataItem.ID_Donacion, "rechazó", dataItem.ID_UsuarioEmisor)
     console.log("Estado de Solicitud: Rechazado", SolEst);
     this.refreshSolicitudesRecibidas();
   })}
@@ -104,4 +108,22 @@ export class SolicitudesRecibidasComponent implements OnInit {
         );
       })
     }
+    generarNotificacion(Itemid:number, caso:String, itemUsuario:number)
+      {
+        const notificacion = {
+          titulo:"Aceptacion de Solicitud",
+          mensaje: caso + " tu solicitud de ",
+          leido:0,
+          ID_Usuario:itemUsuario,
+          ID_Emisor:this.usuarioService.getUserId(),
+          ID_Solicitud: -1,
+          ID_Donacion: Itemid,
+          ID_Necesidad: -1
+  
+        }
+        this.notificacionService.nuevaNotificaciones(notificacion).subscribe(res => {
+          console.log(notificacion);
+        });
+      }
+      
 }

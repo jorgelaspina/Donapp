@@ -6,6 +6,7 @@ import { DialogService } from 'src/app/services/dialog.service';
 import { DonacionesService } from 'src/app/services/donaciones.service';
 import { NecesidadesService } from 'src/app/services/necesidades.service';
 import { Router } from '@angular/router';
+import { NotificacionService } from 'src/app/services/notificacion.service';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class OfrecimientosRecibidosComponent implements OnInit {
     private dialogService:DialogService,
     private servicioDonacion:DonacionesService,
     private servicioNecesidad:NecesidadesService,
+    private notificacionService: NotificacionService,
     private router: Router
     ) { }
 
@@ -62,6 +64,7 @@ export class OfrecimientosRecibidosComponent implements OnInit {
           })          
           console.log("Estado de Necesidad: Atendido", NecEst);
         });
+        this.generarNotificacion(dataItem.ID_Necesidad, "aceptó", dataItem.ID_UsuarioEmisor )
         console.log("Estado de Solicitud: Aceptado", SolEst);
         this.crearConversacion(dataItem.ID);
         console.log(dataItem.ID);
@@ -89,6 +92,7 @@ export class OfrecimientosRecibidosComponent implements OnInit {
           })          
           console.log("Estado de Necesidad: Disponible", NecEst);
         });
+        this.generarNotificacion(dataItem.ID_Necesidad, "rechazo", dataItem.ID_UsuarioEmisor)
         console.log("Estado de Solicitud: Rechazado", SolEst);
         console.log(dataItem.ID);
         this.refreshSolicitudesRecibidas();
@@ -106,4 +110,21 @@ export class OfrecimientosRecibidosComponent implements OnInit {
     });
     
   }
+  generarNotificacion(Itemid:number, caso:String, ItemUsuario:number)
+      {
+        const notificacion = {
+          titulo:"Respuesta de Ofrecimiento",
+          mensaje: caso + " tu ofrecimiento de ",
+          leido:0,
+          ID_Usuario:ItemUsuario,
+          ID_Emisor:this.servicioUsuario.getUserId(),
+          ID_Solicitud: -1,
+          ID_Donacion: -1,
+          ID_Necesidad: Itemid
+  
+        }
+        this.notificacionService.nuevaNotificaciones(notificacion).subscribe(res => {
+          console.log(notificacion);
+        });
+      }
 }
